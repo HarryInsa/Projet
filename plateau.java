@@ -18,16 +18,18 @@ public class plateau{
 			int j = (int)(Math.random()*n);
 			int k = (int)(Math.random()*n);
 			int l = (int)(Math.random()*n);
-			if(estVide(i,j)){
-				jeu[i][j] = p.a;
-			}else{
-				
+			while(!estVide(i,j)){
+				i = (int)(Math.random()*n);	
+				j = (int)(Math.random()*n);
+			}
+			jeu[i][j] = p.a;
+			
+			while(!estVide(k,l)){
+				k = (int)(Math.random()*n);
+				l = (int)(Math.random()*n);
 			}	
-			if(estVide(k,l)){
-				jeu[k][l] = p.b;
-			}else{
-				
-			}	
+			jeu[k][l] = p.b;
+			
 		}	
 	}
 	
