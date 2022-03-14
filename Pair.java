@@ -1,7 +1,7 @@
 public class Pair {
     
-    private int a ;
-    private int b ;
+    public int a ;
+    public int b ;
     
     
     public Pair(int nb1, int nb2) {
