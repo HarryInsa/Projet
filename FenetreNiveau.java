@@ -4,6 +4,11 @@ import java.awt.*;
 import java.awt.event.* ;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.*;
+import java.util.*;
 
 public class FenetreNiveau extends JFrame implements ActionListener{
     
@@ -23,9 +28,8 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     JMenuItem autre;
     JTextField chpsTexte;
     //RAJOUTER date et heure
-    
+    JLabel horloge;
     ImageIcon icon;
-    
     
     public FenetreNiveau(){
         
@@ -49,12 +53,13 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         monConteneur.setLayout(null);
         
         
-        //Fond d'écran - image
+        //Fond d'écran - image        
         icon = new ImageIcon("./Logo.png");
         JLabel fond = new JLabel();
         Image imageZoom = scaleImage(icon.getImage(), 400,400);
         fond.setIcon (new ImageIcon(imageZoom));
         fond.setBounds(0,0,400,400);
+        monConteneur.add(fond);
         
         //Boutons de choix niveau
         bouton1 = new JButton("Niveau 1");
@@ -86,7 +91,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         chpsTexte.setBounds(275,225,50,50);
         
         //Etiquette info
-        JLabel chps = new JLabel("Vous avez choisit le niveau :"); // étiquette qui ne s'affiche pas
+        JLabel chps = new JLabel("Vous avez choisit le niveau :");
         chps.setBounds(25,225,200,50);
         chps.setFont(police2);
         
@@ -112,7 +117,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
         
         //Ajout des éléments
-        monConteneur.add(fond,BorderLayout.CENTER);
+        
         monConteneur.add(bouton1);
         monConteneur.add(bouton2);
         monConteneur.add(bouton3);
@@ -135,10 +140,17 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //UIManager.put("Panel.background",new ColorUIResource(54,66,230));
         
         
+		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		horloge = new JLabel(format.format(date));
+		horloge.setBounds(0,0, 200, 100);
+        monConteneur.add(horloge);
+        
     }
     
     
     public void actionPerformed (ActionEvent e){
+
        
        if (e.getSource() == bouton1){
             niveau=1;
@@ -163,26 +175,8 @@ public class FenetreNiveau extends JFrame implements ActionListener{
             System.exit(0);
         }
     }
-    //methode scale redimensionnement
+    
     public static Image scaleImage(Image source, int width, int height) {
 	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
     }
-    /*
-    //Méthode de calcul (en pixels) des paramètres widht et height de la méthode précédente
-	public static Image scaleImage(Image source, int size) {
-		int width = source.getWidth(null);
-		int height = source.getHeight(null);
-		double f = 0;
-		if (width < height) { // portrait
-		    f = (double)height / (double)width;
-		    width = (int)(size / f);
-		    height = size;
-		} else { //paysage
-		    f = (double)width / (double)height;
-		    width = size;
-		    height = (int)(size / f);
-		}
-		return scaleImage(source, width, height);
-	}*/
-    
 }
