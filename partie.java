@@ -2,10 +2,10 @@ import java.util.* ;
 
 public class partie {
 	
-	int nombre;
-	int nombrePair;
-	LinkedList <Pair> list;
-	plateau jeu;
+	public int nombre;
+	public int nombrePair;
+	public LinkedList <Pair> list;
+	public plateau tab;
 	
 	public partie (int niveau){
 		
@@ -21,7 +21,7 @@ public class partie {
 		}
 		
 		//Création du plateau de jeu
-		jeu = new plateau (list);
+		tab = new plateau (list);
 		
 	}
 	
@@ -46,4 +46,33 @@ public class partie {
 		Pair pair = new Pair (a, b);
 		return pair;
 	}
+	
+	//Vérification si une pair appartient ou non à la list
+	public boolean verifList (int a, int b){
+		boolean verif = false;
+		
+		//Si pair appartient on l'enlève de list
+		Pair v1 = new Pair(a,b);
+		if(list.contains(v1)){
+			verif = true;
+			list.remove(v1);	
+		}
+		
+		//Idem si la pair "dans l'autre sens" appartient
+		Pair v2	= new Pair (b,a);
+		if(list.contains(v2)){
+			verif = true;
+			list.remove(v2);
+		}
+		
+		return verif;
+	}
+	
+	//Vérifie si la partie est finie ou non (si la list est vide)
+	public boolean verifPartie (){
+		if(list == null){
+			return true;
+		}
+		return false;
+	}	
 }
