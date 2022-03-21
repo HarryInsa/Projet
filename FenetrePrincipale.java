@@ -11,8 +11,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	
 	public FenetrePrincipale (int niveau){
 		
+		//CRéation de la partie
 		partie p = new partie (niveau);
 		
+		//Paramètres de la fenetre
 		this.setTitle("THE MEMORY");
 		this.setSize(700,700);
 		
@@ -72,7 +74,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	
 	public void actionPerformed (ActionEvent e){
 		
-		boolean retourne = false;
+		//Pour récupérer le nombre de la 1ère case choisit
 		int a = 0;
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
@@ -82,6 +84,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			}	
 		}
 		
+		//Pour récupérer le nombre de la 2ème case choisit
 		int b = 0;
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
@@ -91,14 +94,21 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			}	
 		}
 		
-		retourne = verif(a,b);
+		boolean retourne = p.verifList(a,b);
 		//bloquer les clic
 		//si retourne true il faut supprimer/cacher les 2 boutons
 		//Si retourne false il faut recacher les images
-		//Verif fin de partie
+		
+		//Vérification si la partie est finie
+		boolean fin = p.verifPartie();
+		if (fin == true){
+			//fermer fenetre
+		}	
 		//continuer jeu
 
 	}
+	
+	//Récupère le nombre choisit et l'affiche sur le bouton
 	public int afficherCase(int i, int j){
 		int a = p.tab.jeu[i][j];	//ATTENTION ERREUR POINTER NUL
 		String w = Integer.toString(a);
@@ -106,20 +116,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		return a;
 	}	
 	
-	public boolean verif (int a, int b){
-		boolean verif = false;
-		Pair v1 = new Pair(a,b);
-		if(p.list.contains(v1)){
-			verif = true;
-			p.list.remove(v1);
-			
-		}
-		Pair v2	= new Pair (b,a);
-		if(p.list.contains(v2)){
-			verif = true;
-			p.list.remove(v2);
-		}
-		return verif;
-	}
+	
 		
 }
