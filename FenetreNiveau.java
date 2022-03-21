@@ -6,13 +6,12 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.text.*;
 import java.util.*;
 
 public class FenetreNiveau extends JFrame implements ActionListener{
     
-    int niveau;
+    int niveau=0;
     JButton bouton1;
     JButton bouton2;
     JButton bouton3;
@@ -151,8 +150,8 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     
     public void actionPerformed (ActionEvent e){
 
-       
-       if (e.getSource() == bouton1){
+           
+       if (e.getSource()  == bouton1){
             niveau=1;
             chpsTexte.setText("1");
 
@@ -160,7 +159,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
             niveau = 2;
             chpsTexte.setText("2");
 
-        }else{
+        }else if (e.getSource()==bouton3){
             niveau = 3;
             chpsTexte.setText("3");
         }
