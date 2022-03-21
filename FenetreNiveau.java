@@ -14,6 +14,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     JButton quitter;
     
     Font police;
+    Font police2;
     String res;
     String res1;
     JMenu menu;
@@ -22,6 +23,8 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     JMenuItem autre;
     JTextField chpsTexte;
     //RAJOUTER date et heure
+    
+    ImageIcon icon;
     
     
     public FenetreNiveau(){
@@ -36,6 +39,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
         //définition de la police
         police = new Font(" Arial " , Font.BOLD , 16);
+        police2 = new Font(" Arial " , Font.BOLD , 13);
         
         //Initialisation du niveau à 0
         niveau = 0;
@@ -46,8 +50,10 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
         
         //Fond d'écran - image
+        icon = new ImageIcon("./Logo.png");
         JLabel fond = new JLabel();
-        fond.setIcon (new ImageIcon("./Logo.png"));
+        Image imageZoom = scaleImage(icon.getImage(), 400,400);
+        fond.setIcon (new ImageIcon(imageZoom));
         fond.setBounds(0,0,400,400);
         
         //Boutons de choix niveau
@@ -82,7 +88,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Etiquette info
         JLabel chps = new JLabel("Vous avez choisit le niveau :"); // étiquette qui ne s'affiche pas
         chps.setBounds(25,225,200,50);
-        chps.setFont(police);
+        chps.setFont(police2);
         
         //Création du menu
         menu = new JMenu("Menu");
@@ -106,7 +112,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
         
         //Ajout des éléments
-        monConteneur.add(fond);
+        monConteneur.add(fond,BorderLayout.CENTER);
         monConteneur.add(bouton1);
         monConteneur.add(bouton2);
         monConteneur.add(bouton3);
@@ -157,4 +163,26 @@ public class FenetreNiveau extends JFrame implements ActionListener{
             System.exit(0);
         }
     }
+    //methode scale redimensionnement
+    public static Image scaleImage(Image source, int width, int height) {
+	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
+    }
+    /*
+    //Méthode de calcul (en pixels) des paramètres widht et height de la méthode précédente
+	public static Image scaleImage(Image source, int size) {
+		int width = source.getWidth(null);
+		int height = source.getHeight(null);
+		double f = 0;
+		if (width < height) { // portrait
+		    f = (double)height / (double)width;
+		    width = (int)(size / f);
+		    height = size;
+		} else { //paysage
+		    f = (double)width / (double)height;
+		    width = size;
+		    height = (int)(size / f);
+		}
+		return scaleImage(source, width, height);
+	}*/
+    
 }
