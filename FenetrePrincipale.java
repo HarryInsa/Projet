@@ -9,10 +9,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	public Timer mt;
 	public partie p;
 	
-	public FenetrePrincipale (int niveau){
+	public FenetrePrincipale (int niveau, partie p){
 		
-		//CRéation de la partie
-		partie p = new partie (niveau);
+		//Instanciation partie
+        this.p=p;
 		
 		//Paramètres de la fenetre
 		this.setTitle("THE MEMORY");
@@ -73,13 +73,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	}	
 	
 	public void actionPerformed (ActionEvent e){
-		
 		//Pour récupérer le nombre de la 1ère case choisit
 		int a = 0;
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
 				if(e.getSource() == lesBoutons[i][j]){
 					a = afficherCase(i,j);
+                    
 				}
 			}	
 		}
@@ -89,7 +89,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
 				if(e.getSource() == lesBoutons[i][j]){
-					b = afficherCase(i,j);
+                    b = afficherCase(i,j);
 				}
 			}	
 		}
