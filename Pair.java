@@ -17,8 +17,4 @@ public class Pair {
             return false;
     }
     
-    // Affichage
-    public String toString(){
-        return "("+a+","+b+")";
-    }
 }
