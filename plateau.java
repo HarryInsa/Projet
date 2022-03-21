@@ -3,7 +3,7 @@ import java.util.*;
 public class plateau{
 	
 	
-	public int[][] jeu;
+	public int [][] jeu;
 	
 	public plateau (LinkedList<Pair>list){
 		
@@ -18,12 +18,15 @@ public class plateau{
 			int j = (int)(Math.random()*n);
 			int k = (int)(Math.random()*n);
 			int l = (int)(Math.random()*n);
+			
+			//Vérification si la case est vide pour le 1er nombre
 			while(!estVide(i,j)){
 				i = (int)(Math.random()*n);	
 				j = (int)(Math.random()*n);
 			}
 			jeu[i][j] = p.a;
 			
+			//Idem pour le 2ème nombre de la pair
 			while(!estVide(k,l)){
 				k = (int)(Math.random()*n);
 				l = (int)(Math.random()*n);
@@ -33,12 +36,13 @@ public class plateau{
 		}	
 	}
 	
+	//Vérifie si la case du tableau est vide
 	public boolean estVide (int i, int j){
 		boolean vide = false;
 		if(jeu[i][j] == 0){
 			vide = true;
 		}
 		return vide;
-	}	
+	}
 	
 }
