@@ -1,0 +1,38 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.* ;
+
+public class FenetreFin extends JFrame implements ActionListener{
+	
+	
+	public FenetreFin (){	//Ajouter temps mis pour gagner
+		//Paramètres de la fenetre
+		this.setTitle("FIN DE LA PARTIE");
+		this.setSize(300,300);
+		
+		// Pour placer la fenêtre au centre de l'écran
+		this.setLocationRelativeTo(null);
+		
+		// Pour empêcher le redimensionnement de la fenêtre
+		this.setResizable(false);
+		
+		//Fond
+		JPanel fond = new JPanel ();
+		fond.setBounds(0,0,300,300);
+		fond.setLayout(null);
+		fond.setBackground(Color.pink);
+		this.add(fond);
+		
+		//Etiquette fin
+		JTextField fin = new JTextField("THE MEMORY");
+		fin.setBounds(250,20,200,50);
+		fin.setForeground(Color.white);
+		fond.add(fin);
+		
+		
+	}	
+	
+	public void actionPerformed (ActionEvent e){
+		
+	}	
+}	
