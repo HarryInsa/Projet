@@ -1,21 +1,21 @@
 import java.util.* ;
 
-public class partie {
+public class partie{
 	
 	public int nombre;
 	public int nombrePair;
-	public LinkedList <Pair> list;
+	public LinkedList<Pair> list;
 	public plateau tab;
+	public int taillebouton;
 	
 	public partie (int niveau){
-		
+
 		creationNiveau(niveau);
 		
-		//Création du nombre clé entre 50 et 100
-		nombre = (int)(Math.random()*50+50);
+		
 		
 		//Création de la list contenant toutes les pairs pour le jeu
-		list = new LinkedList <Pair> ();
+		list = new LinkedList<Pair> ();
 		while (list.size()<nombrePair){
 			list.add(creationPair());
 		}
@@ -29,19 +29,22 @@ public class partie {
 	public void creationNiveau (int niveau){
 		if (niveau == 1){
 			nombrePair = 8;
+			taillebouton = 90;
+			nombre = (int)(Math.random()*10+20);
 		}else if (niveau == 2){
 			nombrePair = 18;
+			taillebouton = 70;
+			nombre = (int)(Math.random()*10+40);
 		}else{
 			nombrePair = 32;
+			taillebouton = 50;
+			nombre = (int)(Math.random()*10+60);
 		}
 	}
 	
 	//Crétion d'une pair aléatoire telle que a + b = nombre
 	public Pair creationPair (){
-		int a = (int)(Math.random()*50+50);
-		while(a>nombre){
-			a = (int)(Math.random()*50+50);
-		}
+		int a = (int)(Math.random()*nombre);
 		int b = (int)(nombre - a);
 		Pair pair = new Pair (a, b);
 		return pair;
@@ -70,9 +73,10 @@ public class partie {
 	
 	//Vérifie si la partie est finie ou non (si la list est vide)
 	public boolean verifPartie (){
-		if(list == null){
+		if(list.size()==0){
 			return true;
 		}
 		return false;
 	}	
+	
 }
