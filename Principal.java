@@ -1,71 +1,80 @@
 public class Principal {
-    
-    
-    
+  
     public static void main (String [] args){
 		
-		//initialisation 
+		//FenetreFin fe = new FenetreFin(5);
+		
+		//initialisation de la partie
 		FenetreNiveau f = new FenetreNiveau();
 		while(f.niveau == 0){
             System.out.print("");
 		}
 		partie p = new partie(f.niveau);
-		FenetrePrincipale fenetre = new FenetrePrincipale(f.niveau,p);
+		
+		/*try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {}
+		*/
+		FenetrePrincipale fenetre = new FenetrePrincipale(p);
+		
 		boolean continu = false;
 		
 		//début de la partie
+		boolean fin = p.verifPartie();	//Verification si la partie est finie
 		
-		boolean fin = p.verifPartie();
-		int a = 0;
-		int k = 0;
-		int l = 0;
+		// Valeurs de la 1ère case choisi
+		int a = 0;	//Valeur de la case
+		int k = 0;	//Indice i de sa position
+		int l = 0;	//Indice j de sa position
 		
-		int b = 0;
-		int n = 0;
-		int m = 0;
+		//Valeurs de la 2ème case choisi
+		int b = 0;	//Valeur de la case
+		int n = 0;	//Indice i de sa position
+		int m = 0;	//Indice j de sa position
+		
+		//Compteur du nombre de coups
+		int coups = 0;
+		
+		
 		
 		while (!fin){
+			
+			//Lancement du timer
+			fenetre.mt.start();
+			
 			//Debloquer les clics
+			fenetre.debloquerClic();
 			
-			boolean modification = fenetre.modification(a, k, l);
-			//Recupérer les 6 valeurs pour les 2 cases
-			
-			//Recupère les 3 premières valeurs comment ne pas les recupérer à 000
-			while(!modification){
+			//Recupère les 3 premières valeurs
+			while(!fenetre.click){
 				System.out.print("");
-				modification = fenetre.modification(b,n,m);
 			}
 			
 			a = fenetre.a;
 			k = fenetre.k;
 			l = fenetre.l;
 			
-			System.out.println("a" + a);
-			System.out.println("k" +k);
-			System.out.println("l" +l);
-				
+			fenetre.click = false;
+			
 			//Methode si une des 3 valeurs est modifie dans ce cas on recupère les 3 autres valeurs
-			modification = fenetre.modification(a,k,l);
-			while(!modification){
+			while(!fenetre.click){
 				System.out.print("");
-				modification = fenetre.modification(a,k,l);
 			}
+			
 			b = fenetre.a;
 			m = fenetre.k;
 			n = fenetre.l;
 			
-			System.out.println("b"+b);
-			System.out.println("m"+m);
-			System.out.println("n"+n);
+			fenetre.click = false;
 			
 			//Bloquer clic
+			fenetre.bloquerClic();
 			
 			boolean retourne = p.verifList(a,b);
-		
-			//Attendre 1min
 			
+			//Attendre 2secs
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(2000);
 			} catch (InterruptedException ie) {}
 		
 			if(retourne){	//si retourne true il faut supprimer/cacher les 2 boutons
@@ -78,13 +87,21 @@ public class Principal {
 		
 			//Vérification si la partie est finie
 			fin = p.verifPartie();
-			
-			
+			coups++;			
 		}
+		
+		String temps = String.valueOf(fenetre.cpt);
+
 		if(fin){
-			FenetreFin ffin = new FenetreFin();
+			FenetreFin ffin = new FenetreFin(coups, temps);
 		}	
     }
     
+    /*
+    * pouvoir rejouer
+    * ajouter d'autres opérations
+    * interfaces (police, taille, fond, forme,..)
+    * commentaires partout
+    */
     
 } 
