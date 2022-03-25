@@ -9,12 +9,15 @@ public class Pair {
         this.b = nb2;
     }
     
-    //Méthode de comparaison renvoie true ou false
-    public boolean equals(Pair p1){
-        if(this.a==p1.a && this.b==p1.b || this.b==p1.a && this.a==p1.b)
-            return true;
-        else
-            return false;
-    }
+    public boolean equals (Object o){ 
+		Pair p = null;
+		if(o instanceof Pair){
+			p = (Pair) o;
+			if(this.a == p.a && this.b == p.b){
+				return true;
+			}
+		}
+		return false;
+	}	
     
 }
