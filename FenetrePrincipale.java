@@ -11,9 +11,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	int a;
 	int k;
 	int l;
+	boolean click = false;
+	int cpt =0;
+	JLabel temps;
 	
-	
-	public FenetrePrincipale (int niveau, partie p){
+	public FenetrePrincipale (partie p){
 		
 		//Instanciation partie
         this.p=p;
@@ -31,6 +33,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		// Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//Initialisation du timer
+		mt = new Timer (1000, this);
 		
 		//Panneau du fond
 		JPanel fond = new JPanel();
@@ -40,15 +44,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		this.add(fond);
 		
 		//titre
-		JTextField titre = new JTextField("THE MEMORY");
+		JLabel titre = new JLabel("THE MEMORY");
 		titre.setBounds(250,20,200,50);
 		titre.setBackground(Color.red);
 		titre.setForeground(Color.white);
 		fond.add(titre);
 		
+		//Timer
+		temps = new JLabel();
+		temps.setBounds(500, 20, 50,50);
+		fond.add(temps);
+		
 		//nombre clé
 		String z = Integer.toString(p.nombre);
-		JTextField cle = new JTextField(z);
+		JLabel cle = new JLabel(z);
 		cle.setBounds(20,20,50,50);
 		cle.setBackground(Color.red);
 		cle.setForeground(Color.white);
@@ -56,33 +65,34 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		
 		//Tableau de boutons
 		int n = (int)(Math.sqrt((p.nombrePair)*2));
+		int t = p.taillebouton;
 		lesBoutons = new JButton[n][n];		
-		int ecartx = (700-n*70)/(n+1);
-		int ecarty = (600-n*70)/(n+1);
+		int ecartx = (700-n*t)/(n+1);
+		int ecarty = (600-n*t)/(n+1);
 		
 		for(int i=0 ; i < n ; i++){
 			for(int j=0 ; j < n ; j++){
 				lesBoutons[i][j] = new JButton();
-				lesBoutons[i][j].setBounds(ecartx+i*ecartx+i*70,100+j*ecarty+j*70,70,70);
+				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
 				lesBoutons[i][j].addActionListener(this);
 				
 				fond.add(lesBoutons[i][j]);			
 			}
 		}
 		
-		//timer
-		mt = new Timer(1000,this);
-		
 		this.setVisible(true);
 	}	
 	
 	public void actionPerformed (ActionEvent e){
+		cpt++;
+		temps.setText(String.valueOf(cpt));
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
 				if(e.getSource() == lesBoutons[i][j]){
 					a = afficherCase(i,j);
 					k = i;
 					l = j;
+					click = true;
 				}
 			}
 		}
@@ -104,5 +114,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		return modif;
 	}	
 	
-		
+	public void bloquerClic (){
+		for(int i=0 ; i < lesBoutons.length ; i++){
+			for(int j=0 ; j < lesBoutons[0].length ; j++){
+				lesBoutons[i][j].setEnabled(false);
+			}
+		}
+    }
+	
+	public void debloquerClic (){
+		for(int i=0 ; i < lesBoutons.length ; i++){
+			for(int j=0 ; j < lesBoutons[0].length ; j++){
+				lesBoutons[i][j].setEnabled(true);
+			}
+		}
+    }
+	
 }
