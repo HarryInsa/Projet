@@ -8,6 +8,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	public JButton [][] lesBoutons;
 	public Timer mt;
 	public partie p;
+	int a;
+	int k;
+	int l;
+	
 	
 	public FenetrePrincipale (int niveau, partie p){
 		
@@ -73,49 +77,32 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	}	
 	
 	public void actionPerformed (ActionEvent e){
-		//Pour récupérer le nombre de la 1ère case choisit
-		int a = 0;
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
 				if(e.getSource() == lesBoutons[i][j]){
 					a = afficherCase(i,j);
-                    
+					k = i;
+					l = j;
 				}
-			}	
+			}
 		}
-		
-		//Pour récupérer le nombre de la 2ème case choisit
-		int b = 0;
-		for(int i=0 ; i < lesBoutons.length ; i++){
-			for(int j=0 ; j < lesBoutons[0].length ; j++){
-				if(e.getSource() == lesBoutons[i][j]){
-                    b = afficherCase(i,j);
-				}
-			}	
-		}
-		
-		boolean retourne = p.verifList(a,b);
-		//bloquer les clic
-		//si retourne true il faut supprimer/cacher les 2 boutons
-		//Si retourne false il faut recacher les images
-		
-		//Vérification si la partie est finie
-		boolean fin = p.verifPartie();
-		if (fin == true){
-			//fermer fenetre
-		}	
-		//continuer jeu
-
 	}
 	
 	//Récupère le nombre choisit et l'affiche sur le bouton
 	public int afficherCase(int i, int j){
-		int a = p.tab.jeu[i][j];	//ATTENTION ERREUR POINTER NUL
+		int a = p.tab.jeu[i][j];
 		String w = Integer.toString(a);
 		lesBoutons[i][j].setText(w);
 		return a;
 	}	
 	
+	public boolean modification (int a, int b, int c){
+		boolean modif = false;
+		if(a != this.a || b != this.k || c != this.l){
+			modif = true; 
+		}
+		return modif;
+	}	
 	
 		
 }
