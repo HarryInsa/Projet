@@ -5,7 +5,7 @@ public class plateau{
 	
 	public int [][] jeu;
 	
-	public plateau (LinkedList<Pair>list){
+	public plateau (LinkedList<Pair> list){
 		
 		//pas de problem car les listes sont composées d'un nombre de paire de telle sorte à obtenir une matrice carrée
 		int n = (int)(Math.sqrt((list.size())*2));	
