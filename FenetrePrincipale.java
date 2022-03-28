@@ -23,11 +23,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
     public Font policeNbCle;
 
     
-	public FenetrePrincipale (partie p){
+	public FenetrePrincipale (int niveau){
 		
 		//Instanciation partie
-        this.p=p;
-        
+        p = new partie (niveau);
         
 		//police
         policeTitre = new Font ("Harrington",Font.PLAIN,20); //titre
@@ -86,7 +85,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
 				lesBoutons[i][j].addActionListener(this);
-                lesBoutons[i][j].setBackground(Color.BLUE);
+                lesBoutons[i][j].setBackground(Color.GREEN);
 				fond.add(lesBoutons[i][j]);		
                 choixPolice(lesBoutons[i][j]);
                 	
@@ -174,6 +173,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			temps.setText(minutes + " mins " + secondes + " secs");
 		}
 		
-	}	
+	}
 	
 }
