@@ -9,9 +9,10 @@ public class partie{
 	public LinkedList<Pair> list;
 	public plateau tab;
 	public int taillebouton;
-	
+	public int niveau;
+    
 	public partie (int niveau){
-
+        this.niveau = niveau;
 		creationNiveau(niveau);
 		
 		//Création de la list contenant toutes les pairs pour le jeu
