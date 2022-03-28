@@ -1,5 +1,6 @@
 public class Pair {
     
+    //Attributs
     public int a ;
     public int b ;
     
