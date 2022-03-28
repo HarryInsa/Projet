@@ -5,16 +5,25 @@ public class Principal {
 		//FenetreFin fe = new FenetreFin(5);
 		
 		//initialisation de la partie
+		FenetreAccueil fenetreaccueil = new FenetreAccueil();
+		
+		while(!fenetreaccueil.click){
+			System.out.print("");
+		}
+		
 		FenetreNiveau f = new FenetreNiveau();
+		
+		//Erreur null pointer 
 		while(f.niveau == 0){
             System.out.print("");
 		}
+		
 		partie p = new partie(f.niveau);
 		
-		/*try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {}
-		*/
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException ie) {}
+		
 		FenetrePrincipale fenetre = new FenetrePrincipale(p);
 		
 		boolean continu = false;
@@ -35,8 +44,6 @@ public class Principal {
 		//Compteur du nombre de coups
 		int coups = 0;
 		
-		
-		
 		while (!fin){
 			
 			//Lancement du timer
@@ -56,7 +63,7 @@ public class Principal {
 			
 			fenetre.click = false;
 			
-			//Methode si une des 3 valeurs est modifie dans ce cas on recupère les 3 autres valeurs
+			//Methode si il y a eu un click sur l'un des boutons on recupère les 3 nouvelles valeurs
 			while(!fenetre.click){
 				System.out.print("");
 			}
@@ -89,11 +96,9 @@ public class Principal {
 			fin = p.verifPartie();
 			coups++;			
 		}
-		
-		String temps = String.valueOf(fenetre.cpt);
 
 		if(fin){
-			FenetreFin ffin = new FenetreFin(coups, temps);
+			FenetreFin ffin = new FenetreFin(coups, fenetre.cpt, fenetre);
 		}	
     }
     
