@@ -14,6 +14,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 	//Attributs
 	public Font police;
     public Font police2;
+    public Font police3;
     public String res;
     public String res1;
     public JMenu menu;
@@ -24,8 +25,10 @@ public class FenetreAccueil extends JFrame implements ActionListener{
     public JLabel horloge;
     public JButton continuer;
     public boolean click = false;
+    public FenetreNiveau fenetreniveau;
 	
 	public FenetreAccueil (){
+		
 		//Définition de la fenetre
         this.setTitle("Bienvenue - The Memory");
         this.setSize(415,465);
@@ -36,6 +39,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         //définition des polices d'écriture
         police = new Font(" Arial " , Font.BOLD , 16);
         police2 = new Font(" Arial " , Font.BOLD , 13);
+        police3 =new Font("Comic Sans", Font.ITALIC, 14);
         
         //conteneur principal - se place au centre
         JPanel monConteneur = new JPanel();
@@ -43,8 +47,9 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         
         //Etiquette règles du jeu
         JLabel etiquette = new JLabel();
-        etiquette.setBounds (0, 50, 400, 300);
-        etiquette.setForeground(Color.white);
+        etiquette.setBounds (50, 25, 400, 300);
+        etiquette.setForeground(Color.black);
+        etiquette.setFont(police3);
         etiquette.setText("Vous allez jouer au memory des chiffres, \n blablabla");
         monConteneur.add(etiquette); 
         
@@ -55,7 +60,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         continuer.addActionListener(this);
         
         //Fond d'écran - image        
-        icon = new ImageIcon("./Logo.png");
+        icon = new ImageIcon("./Logo2bis.png");
         JLabel fond = new JLabel();
         Image imageZoom = scaleImage(icon.getImage(), 400,400);
         fond.setIcon (new ImageIcon(imageZoom));
@@ -102,7 +107,10 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 	
 	public void actionPerformed (ActionEvent e){
 		if(e.getSource() == continuer){
+			fenetreniveau = new FenetreNiveau();
 			click = true;
+			//Principal.b = true;
+			//Principal.lancerJeu();
 			this.dispose();
 		}	
 	}	
