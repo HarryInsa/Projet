@@ -1,30 +1,32 @@
 public class Principal {
-  
+	
+	public static FenetrePrincipale fenetre;
+	public static partie p; 
+	
     public static void main (String [] args){
 		
-		//FenetreFin fe = new FenetreFin(5);
-		
-		//initialisation de la partie
 		FenetreAccueil fenetreaccueil = new FenetreAccueil();
 		
 		while(!fenetreaccueil.click){
 			System.out.print("");
 		}
 		
-		FenetreNiveau f = new FenetreNiveau();
+		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
 		
-		//Erreur null pointer 
-		while(f.niveau == 0){
-            System.out.print("");
+		while(fenetreniveau.estOuverte()){
+			while(!fenetreniveau.click){
+				System.out.print("");
+			}
+			fenetreniveau.click = false;
+			fenetre = fenetreniveau.f;
+			p = fenetre.p;
+			lancerJeu();
 		}
 		
-		partie p = new partie(f.niveau);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException ie) {}
-		
-		FenetrePrincipale fenetre = new FenetrePrincipale(p);
+    }
+    
+    
+    public static void lancerJeu (){
 		
 		boolean continu = false;
 		
@@ -98,15 +100,9 @@ public class Principal {
 		}
 
 		if(fin){
-			FenetreFin ffin = new FenetreFin(coups, fenetre.cpt, fenetre);
-		}	
-    }
-    
-    /*
-    * pouvoir rejouer
-    * ajouter d'autres opérations
-    * interfaces (police, taille, fond, forme,..)
-    * commentaires partout
-    */
-    
+			fenetre.dispose();
+			FenetreFin ffin = new FenetreFin(coups, fenetre.cpt);
+		}
+	}	
+
 } 
