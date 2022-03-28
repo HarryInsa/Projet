@@ -1,7 +1,9 @@
+//Bibliothèque
 import java.util.* ;
 
 public class partie{
 	
+	//Attributs
 	public int nombre;
 	public int nombrePair;
 	public LinkedList<Pair> list;
@@ -11,8 +13,6 @@ public class partie{
 	public partie (int niveau){
 
 		creationNiveau(niveau);
-		
-		
 		
 		//Création de la list contenant toutes les pairs pour le jeu
 		list = new LinkedList<Pair> ();
