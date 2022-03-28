@@ -28,6 +28,10 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JTextField chpsTexte;
     public JLabel horloge;
     public ImageIcon icon;
+    public partie p;
+    public FenetrePrincipale f;
+    public boolean click;
+    
     
     public FenetreNiveau(){
         
@@ -48,14 +52,6 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //conteneur principal - se place au centre
         JPanel monConteneur = new JPanel();
         monConteneur.setLayout(null);
-        
-        //Fond d'écran - image        
-        icon = new ImageIcon("./Logo.png");
-        JLabel fond = new JLabel();
-        Image imageZoom = scaleImage(icon.getImage(), 400,400);
-        fond.setIcon (new ImageIcon(imageZoom));
-        fond.setBounds(0,0,400,400);
-        monConteneur.add(fond);
         
         //Boutons de choix niveau
         bouton1 = new JButton("Niveau 1");
@@ -133,6 +129,14 @@ public class FenetreNiveau extends JFrame implements ActionListener{
 		// UIManager.put("OptionPane.background",new ColorUIResource(54,66,230));
         //UIManager.put("Panel.background",new ColorUIResource(54,66,230));        
         
+        //Fond d'écran - image        
+        icon = new ImageIcon("./Logo.png");
+        JLabel fond = new JLabel();
+        Image imageZoom = scaleImage(icon.getImage(), 400, 400);
+        fond.setIcon (new ImageIcon(imageZoom));
+        fond.setBounds(0,0,400,400);
+        monConteneur.add(fond);
+        
         add(monConteneur);
         this.setVisible(true);
     }
@@ -140,15 +144,15 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     
     public void actionPerformed (ActionEvent e){
 		
-		if (e.getSource()  == bouton1){
-            niveau = 1;
-            chpsTexte.setText("1");
-        }else if (e.getSource()== bouton2){
-            niveau = 2;
-            chpsTexte.setText("2");
-        }else if (e.getSource()==bouton3){
-            niveau = 3;
-            chpsTexte.setText("3");
+		if (e.getSource() == bouton1){
+            f = new FenetrePrincipale(1);
+			click = true;
+        }else if (e.getSource() == bouton2){
+            f = new FenetrePrincipale(2);
+			click = true;
+        }else if (e.getSource() == bouton3){
+			f = new FenetrePrincipale(3);
+			click = true;
         }
         
         if (e.getSource()==regle){
@@ -165,4 +169,13 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public static Image scaleImage(Image source, int width, int height) {
 	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
     }
+    
+    public boolean estOuverte (){
+		if(this.isVisible() == true){
+			return true;
+		}else{
+			return false;
+		}	
+	}	
+    
 }
