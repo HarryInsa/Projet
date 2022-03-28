@@ -1,3 +1,4 @@
+//Bibliothèques
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -5,32 +6,27 @@ import java.util.LinkedList;
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 	
+	//Attributs
 	public JButton [][] lesBoutons;
 	public Timer mt;
 	public partie p;
-	int a;
-	int k;
-	int l;
-	boolean click = false;
-	int cpt =0;
-	JLabel temps;
+	public int a;
+	public int k;
+	public int l;
+	public boolean click = false;
+	public int cpt =0;
+	public JLabel temps;
 	
 	public FenetrePrincipale (partie p){
 		
 		//Instanciation partie
         this.p=p;
 		
-		//Paramètres de la fenetre
+		//Initialisation de la fenetre
 		this.setTitle("THE MEMORY");
 		this.setSize(700,700);
-		
-		// Pour placer la fenêtre au centre de l'écran
 		this.setLocationRelativeTo(null);
-		
-		// Pour empêcher le redimensionnement de la fenêtre
 		this.setResizable(false);
-		
-		// Pour permettre la fermeture de la fenêtre lors de l'appui sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Initialisation du timer
@@ -50,9 +46,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		titre.setForeground(Color.white);
 		fond.add(titre);
 		
-		//Timer
+		//Temps
 		temps = new JLabel();
-		temps.setBounds(500, 20, 50,50);
+		temps.setBounds(500, 20, 100,50);
+		temps.setForeground(Color.white);
 		fond.add(temps);
 		
 		//nombre clé
@@ -84,8 +81,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	}	
 	
 	public void actionPerformed (ActionEvent e){
+		
 		cpt++;
-		temps.setText(String.valueOf(cpt));
+		afficheTemps();
+		
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
 				if(e.getSource() == lesBoutons[i][j]){
@@ -96,6 +95,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				}
 			}
 		}
+		
 	}
 	
 	//Récupère le nombre choisit et l'affiche sur le bouton
@@ -106,14 +106,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		return a;
 	}	
 	
-	public boolean modification (int a, int b, int c){
-		boolean modif = false;
-		if(a != this.a || b != this.k || c != this.l){
-			modif = true; 
-		}
-		return modif;
-	}	
-	
+	//Permet de bloquer l'acces aux boutons du tableau
 	public void bloquerClic (){
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
@@ -122,6 +115,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
     }
 	
+	//Permet de débloquer l'acces aux boutons du tableau
 	public void debloquerClic (){
 		for(int i=0 ; i < lesBoutons.length ; i++){
 			for(int j=0 ; j < lesBoutons[0].length ; j++){
@@ -129,5 +123,21 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			}
 		}
     }
+	
+	//Affichage du temps
+	public void afficheTemps (){
+		
+		int minutes = (int)(cpt/60);
+		int secondes = (int)(cpt-minutes*60);
+		
+		if(minutes < 1){
+			temps.setText(secondes + " secs");
+		}else if(minutes == 1){
+			temps.setText(minutes + " min " + secondes + " secs");
+		}else{
+			temps.setText(minutes + " min " + secondes + " secs");
+		}
+		
+	}	
 	
 }
