@@ -1,8 +1,9 @@
+//Bibliothèque
 import java.util.*;
 
 public class plateau{
 	
-	
+	//Attribut
 	public int [][] jeu;
 	
 	public plateau (LinkedList<Pair> list){
