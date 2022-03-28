@@ -16,12 +16,26 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	public boolean click = false;
 	public int cpt =0;
 	public JLabel temps;
-	
+    public Font policeTitre;
+    public Font policeGrande;
+    public Font policeMoyenne;
+    public Font policePetite;
+    public Font policeNbCle;
+
+    
 	public FenetrePrincipale (partie p){
 		
 		//Instanciation partie
         this.p=p;
-		
+        
+        
+		//police
+        policeTitre = new Font ("Harrington",Font.PLAIN,20); //titre
+        policeGrande = new Font ("Cambria", Font.BOLD,42); //police niveau 1
+        policeMoyenne = new Font ("Cambria", Font.BOLD,32); //police niveau 2
+        policePetite = new Font ("Cambria", Font.BOLD,22); //police niveau 3
+        policeNbCle = new Font(" Arial " , Font.PLAIN , 13); //police nombre cle
+        
 		//Initialisation de la fenetre
 		this.setTitle("THE MEMORY");
 		this.setSize(700,700);
@@ -36,27 +50,27 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		JPanel fond = new JPanel();
 		fond.setBounds(0,0,700,700);
 		fond.setLayout(null);
-		fond.setBackground(Color.green);
+		fond.setBackground(new Color(25,96,238));
 		this.add(fond);
 		
 		//titre
-		JLabel titre = new JLabel("THE MEMORY");
-		titre.setBounds(250,20,200,50);
-		titre.setBackground(Color.red);
+		JLabel titre = new JLabel("The Memory");
+        titre.setFont(policeTitre);
+		titre.setBounds(292,20,200,50);
 		titre.setForeground(Color.white);
 		fond.add(titre);
 		
 		//Temps
 		temps = new JLabel();
-		temps.setBounds(500, 20, 100,50);
+		temps.setBounds(600, 20, 100,50);
 		temps.setForeground(Color.white);
 		fond.add(temps);
 		
 		//nombre clé
 		String z = Integer.toString(p.nombre);
-		JLabel cle = new JLabel(z);
-		cle.setBounds(20,20,50,50);
-		cle.setBackground(Color.red);
+		JLabel cle = new JLabel("Nombre clé : "+z);
+        cle.setFont(policeNbCle);
+		cle.setBounds(40,20,120,50);
 		cle.setForeground(Color.white);
 		fond.add(cle);
 		
@@ -72,8 +86,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
 				lesBoutons[i][j].addActionListener(this);
-				
-				fond.add(lesBoutons[i][j]);			
+                lesBoutons[i][j].setBackground(Color.BLUE);
+				fond.add(lesBoutons[i][j]);		
+                choixPolice(lesBoutons[i][j]);
+                	
 			}
 		}
 		
@@ -123,6 +139,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			}
 		}
     }
+    
+    public void choixPolice(JButton b){
+        switch (p.niveau){
+            case 1 :
+                b.setFont(policeGrande);
+            case 2 :
+                b.setFont(policeMoyenne);
+            case 3 : 
+                b.setFont(policePetite);
+        }    
+    }
 	
 	//Affichage du temps
 	public void afficheTemps (){
@@ -131,11 +158,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		int secondes = (int)(cpt-minutes*60);
 		
 		if(minutes < 1){
-			temps.setText(secondes + " secs");
+            if(secondes==1){
+                temps.setText(secondes + " sec");
+            }else{
+                temps.setText(secondes + " secs");
+            }
 		}else if(minutes == 1){
-			temps.setText(minutes + " min " + secondes + " secs");
+            if(secondes==1){
+                temps.setText(minutes + " min " + secondes + " sec");
+            }else{
+                
+                temps.setText(minutes + " min " + secondes + " secs");
+            }
 		}else{
-			temps.setText(minutes + " min " + secondes + " secs");
+			temps.setText(minutes + " mins " + secondes + " secs");
 		}
 		
 	}	
