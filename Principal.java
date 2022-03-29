@@ -92,8 +92,10 @@ public class Principal {
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException ie) {}
-		
-			if(retourne){	//si retourne true il faut supprimer/cacher les 2 boutons
+            
+            int test=1;//pour eviter pb d'affichage
+            
+			if(retourne && test==1){	//si retourne true il faut supprimer/cacher les 2 boutons
 				fenetre.lesBoutons[k][l].setVisible(false);
 				fenetre.lesBoutons[m][n].setVisible(false);
 			}else{		//Si retourne false il faut recacher les nombres
