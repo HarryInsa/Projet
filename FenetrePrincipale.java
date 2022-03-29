@@ -23,10 +23,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
     public Font policeNbCle;
 
     
-	public FenetrePrincipale (int niveau){
+	public FenetrePrincipale (int niveau, int operation){
 		
 		//Instanciation partie
-        p = new partie (niveau);
+        p = new partie (niveau, operation);
         
 		//police
         policeTitre = new Font ("Harrington",Font.PLAIN,20); //titre
