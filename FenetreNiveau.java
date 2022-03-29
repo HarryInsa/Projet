@@ -13,9 +13,12 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     
     //Atributs
     public int niveau = 0;
+    public int operation = 0;
     public JButton bouton1;
     public JButton bouton2;
     public JButton bouton3;
+    public JButton boutonadd;
+    public JButton boutonsous;
     public JButton quitter;
     public Font police;
     public Font police2;
@@ -25,12 +28,15 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JMenuBar menubar;
     public JMenuItem regle;
     public JMenuItem autre;
-    public JTextField chpsTexte;
+    public JLabel chpsNiveau;
+    public JLabel chpsOpe;
     public JLabel horloge;
     public ImageIcon icon;
     public partie p;
     public FenetrePrincipale f;
-    public boolean click;
+    public boolean click1 = false;
+    public boolean click2 = false;
+    
     
     
     public FenetreNiveau(){
@@ -56,21 +62,34 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Boutons de choix niveau
         bouton1 = new JButton("Niveau 1");
         bouton1.setFont(police);
-        bouton1.setBounds(25,125,100,50);
+        bouton1.setBounds(25,180,100,50);
         bouton1.addActionListener(this);
         monConteneur.add(bouton1);
         
         bouton2 = new JButton("Niveau 2");
         bouton2.setFont(police);
-        bouton2.setBounds(150,125,100,50);
+        bouton2.setBounds(150,180,100,50);
         bouton2.addActionListener(this);
         monConteneur.add(bouton2);
         
         bouton3 = new JButton("Niveau 3");
-        bouton3.setBounds(275,125,100,50);
+        bouton3.setBounds(275,180,100,50);
         bouton3.setFont(police);
         bouton3.addActionListener(this);
         monConteneur.add(bouton3);
+        
+        //Boutons choix opération
+        boutonadd = new JButton("Addition");
+        boutonadd.setBounds(25, 50, 150, 50);
+        boutonadd.setFont(police);
+        boutonadd.addActionListener(this);
+        monConteneur.add(boutonadd);
+        
+        boutonsous = new JButton("Soustraction");
+        boutonsous.setBounds(225, 50, 150, 50);
+        boutonsous.setFont(police);
+        boutonsous.addActionListener(this);
+        monConteneur.add(boutonsous);
         
 		//Bouton quitter
         quitter = new JButton("Quitter");
@@ -80,25 +99,42 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         quitter.addActionListener(this);
         monConteneur.add(quitter);
         
-        //Champ texte avec étiquette
-        chpsTexte = new JTextField();
-        chpsTexte.setFont(police);
-        chpsTexte.setBounds(275,225,50,50);
-        monConteneur.add(chpsTexte);
+        //Affichage niveau choisit
+        chpsNiveau = new JLabel();
+        chpsNiveau.setFont(police);
+        chpsNiveau.setForeground(Color.WHITE);
+        chpsNiveau.setBounds(300,250,50,50);
+        monConteneur.add(chpsNiveau);
         
-        //Etiquette info
-        JLabel chps = new JLabel("Vous avez choisit le niveau :");
-        chps.setBounds(25,225,200,50);
-        chps.setFont(police2);
-        monConteneur.add(chps);
+        //Affichage opération choisit
+        chpsOpe = new JLabel();
+        chpsOpe.setFont(police);
+        chpsOpe.setForeground(Color.WHITE);
+        chpsOpe.setBounds(250,110,150,50);
+        monConteneur.add(chpsOpe);
+        
+        //Etiquette info niveau
+        JLabel chpsNiveau = new JLabel("Vous avez choisit le niveau :");
+        chpsNiveau.setBounds(50,250,200,50);
+        chpsNiveau.setForeground(Color.WHITE);
+        chpsNiveau.setFont(police2);
+        monConteneur.add(chpsNiveau);
+        
+        //Etiquette info operation
+        JLabel chpsope = new JLabel("Vous avez choisit l'opération :");
+        chpsope.setBounds(25, 110, 200, 50);
+        chpsope.setForeground(Color.WHITE);
+        chpsope.setFont(police2);
+        monConteneur.add(chpsope);
         
         //Etiquette date et heure
         DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		horloge = new JLabel(format.format(date));
-		horloge.setBounds(0,0, 200, 100);
+		horloge.setForeground(Color.WHITE);
+		horloge.setBounds(225, -30, 200, 100);
         monConteneur.add(horloge);
-        
+       
         //Création du menu
         menu = new JMenu("Menu");
         menu.setFont(police);
@@ -145,15 +181,28 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public void actionPerformed (ActionEvent e){
 		
 		if (e.getSource() == bouton1){
-            f = new FenetrePrincipale(1);
-			click = true;
+            chpsNiveau.setText("1");
+            niveau = 1;
+			click1 = true;
         }else if (e.getSource() == bouton2){
-            f = new FenetrePrincipale(2);
-			click = true;
+            chpsNiveau.setText("2");
+            niveau = 2;
+			click1 = true;
         }else if (e.getSource() == bouton3){
-			f = new FenetrePrincipale(3);
-			click = true;
+			chpsNiveau.setText("3");
+			niveau = 3;
+			click1 = true;
         }
+        
+        if (e.getSource() == boutonadd){
+			chpsOpe.setText("Addition");
+			operation = 1;	//1 pour le choix de l'addition
+			click2 = true;
+		}else if (e.getSource() == boutonsous){
+			chpsOpe.setText("Soustraction");
+			operation = 2;	//2 pour le choix de la soustraction
+			click2 = true;
+		}	
         
         if (e.getSource()==regle){
             JOptionPane.showMessageDialog(this,res,"Règles du Jeu",1,null); 
@@ -170,6 +219,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
 	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
     }
     
+    //Pour savoir si la fenetre est ouverte ou non
     public boolean estOuverte (){
 		if(this.isVisible() == true){
 			return true;
