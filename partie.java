@@ -10,9 +10,13 @@ public class partie{
 	public plateau tab;
 	public int taillebouton;
 	public int niveau;
+	public int operation;
     
-	public partie (int niveau){
+	public partie (int niveau, int operation){
+        
         this.niveau = niveau;
+        this.operation = operation;
+        
 		creationNiveau(niveau);
 		
 		//Création de la list contenant toutes les pairs pour le jeu
@@ -31,24 +35,31 @@ public class partie{
 		if (niveau == 1){
 			nombrePair = 8;
 			taillebouton = 90;
-			nombre = (int)(Math.random()*10+20);
+			nombre = (int)(Math.random()*20+10);
 		}else if (niveau == 2){
 			nombrePair = 18;
 			taillebouton = 70;
-			nombre = (int)(Math.random()*10+40);
+			nombre = (int)(Math.random()*30+20);
 		}else{
 			nombrePair = 32;
 			taillebouton = 50;
-			nombre = (int)(Math.random()*10+60);
+			nombre = (int)(Math.random()*40+30);
 		}
 	}
 	
 	//Crétion d'une pair aléatoire telle que a + b = nombre
 	public Pair creationPair (){
-		int a = (int)(Math.random()*nombre);
-		int b = (int)(nombre - a);
-		Pair pair = new Pair (a, b);
-		return pair;
+		if(operation == 1){
+			int a = (int)(Math.random()*nombre);
+			int b = nombre - a;
+			Pair pair = new Pair (a, b);
+			return pair;
+		}else{
+			int a = (int)(Math.random()*nombre+nombre);
+			int b = a - nombre;
+			Pair pair = new Pair (a, b);
+			return pair;
+		}
 	}
 	
 	//Vérification si une pair appartient ou non à la list
