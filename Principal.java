@@ -14,11 +14,18 @@ public class Principal {
 		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
 		
 		while(fenetreniveau.estOuverte()){
-			while(!fenetreniveau.click){
+			while(fenetreniveau.click1 == false || fenetreniveau.click2 == false){
 				System.out.print("");
 			}
-			fenetreniveau.click = false;
-			fenetre = fenetreniveau.f;
+			
+			//Attendre 2secs
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException ie) {}
+			
+			fenetreniveau.click1 = false;
+			fenetreniveau.click2 = false;
+			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation);
 			p = fenetre.p;
 			lancerJeu();
 		}
