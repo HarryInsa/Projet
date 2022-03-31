@@ -69,18 +69,18 @@ public class partie{
 		//Si pair appartient on l'enlève de list
 		Pair v1 = new Pair(a,b);
 		if(list.contains(v1)){
-			verif = true;
-			list.remove(v1);	
+			list.remove(v1);
+			return true;	
 		}
 		
 		//Idem si la pair "dans l'autre sens" appartient
 		Pair v2	= new Pair (b,a);
 		if(list.contains(v2)){
-			verif = true;
 			list.remove(v2);
+			return true;
 		}
 		
-		return verif;
+		return false;
 	}
 	
 	//Vérifie si la partie est finie ou non (si la list est vide)
