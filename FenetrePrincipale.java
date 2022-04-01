@@ -84,7 +84,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			for(int j=0 ; j < n ; j++){
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
-                lesBoutons[i][j].setBackground(Color.BLUE);
+                lesBoutons[i][j].setBackground(new Color(121, 248, 248) );
 				fond.add(lesBoutons[i][j]);		
                 choixPolice(lesBoutons[i][j]);
 				lesBoutons[i][j].addActionListener(this);
