@@ -39,8 +39,8 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //définition des polices d'écriture
-        police = new Font(" Arial " , Font.BOLD , 16);
-        police2 = new Font(" Arial " , Font.BOLD , 18);
+        police = new Font(" Arial " , Font.PLAIN , 16);
+        police2 = new Font(" Arial " , Font.PLAIN , 14);
         police3 =new Font("Comic Sans", Font.ITALIC, 14);
         
         //conteneur principal - se place au centre
