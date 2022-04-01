@@ -90,5 +90,6 @@ public class partie{
 		}
 		return false;
 	}	
+
 	
 }
