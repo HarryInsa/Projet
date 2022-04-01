@@ -23,6 +23,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JButton boutonJouer;
     public Font police;
     public Font police2;
+    public Font police3;
     public String res;
     public String res1;
     public String res3;
@@ -46,14 +47,15 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
         //Définition de la fenetre
         this.setTitle("Bienvenue - The Memory");
-        this.setSize(415,465);
+        this.setSize(430,490);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //définition des polices d'écriture
-        police = new Font(" Arial " , Font.BOLD , 16);
-        police2 = new Font(" Arial " , Font.BOLD , 13);
+        police3 = new Font(" Arial " , Font.PLAIN , 12);
+        police = new Font(" Arial " , Font.PLAIN , 16);
+        police2 = new Font(" Arial " , Font.PLAIN , 13);
         
         //Initialisation du niveau à 0
         niveau = 0;
@@ -96,16 +98,16 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
 		//Bouton quitter
         quitter = new JButton("Quitter");
-        quitter.setBounds(18,355,80,50);
-        quitter.setFont(police);
+        quitter.setBounds(0,355,100,50);
+        quitter.setFont(police3);
         quitter.setForeground(Color.RED);
         quitter.addActionListener(this);
         monConteneur.add(quitter);
         
         //Bouton Jouer
         boutonJouer = new JButton("Jouer !");
-        boutonJouer.setBounds(320,355,80,50);
-        boutonJouer.setFont(police);
+        boutonJouer.setBounds(320,355,100,50);
+        boutonJouer.setFont(police3);
         boutonJouer.addActionListener(this);
         monConteneur.add(boutonJouer);
         
