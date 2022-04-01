@@ -20,10 +20,12 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JButton boutonadd;
     public JButton boutonsous;
     public JButton quitter;
+    public JButton boutonJouer;
     public Font police;
     public Font police2;
     public String res;
     public String res1;
+    public String res3;
     public JMenu menu;
     public JMenuBar menubar;
     public JMenuItem regle;
@@ -36,6 +38,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public FenetrePrincipale f;
     public boolean click1 = false;
     public boolean click2 = false;
+    public boolean jouer = false;
     
     
     
@@ -93,29 +96,36 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         
 		//Bouton quitter
         quitter = new JButton("Quitter");
-        quitter.setBounds(300,350,100,50);
+        quitter.setBounds(18,355,80,50);
         quitter.setFont(police);
         quitter.setForeground(Color.RED);
         quitter.addActionListener(this);
         monConteneur.add(quitter);
         
+        //Bouton Jouer
+        boutonJouer = new JButton("Jouer !");
+        boutonJouer.setBounds(320,355,80,50);
+        boutonJouer.setFont(police);
+        boutonJouer.addActionListener(this);
+        monConteneur.add(boutonJouer);
+        
         //Affichage niveau choisit
         chpsNiveau = new JLabel();
         chpsNiveau.setFont(police);
         chpsNiveau.setForeground(Color.WHITE);
-        chpsNiveau.setBounds(300,250,50,50);
+        chpsNiveau.setBounds(222,230,50,50);
         monConteneur.add(chpsNiveau);
         
         //Affichage opération choisit
         chpsOpe = new JLabel();
         chpsOpe.setFont(police);
         chpsOpe.setForeground(Color.WHITE);
-        chpsOpe.setBounds(250,110,150,50);
+        chpsOpe.setBounds(233,110,140,50);
         monConteneur.add(chpsOpe);
         
         //Etiquette info niveau
         JLabel chpsNiveau = new JLabel("Vous avez choisit le niveau :");
-        chpsNiveau.setBounds(50,250,200,50);
+        chpsNiveau.setBounds(25,230,200,50);
         chpsNiveau.setForeground(Color.WHITE);
         chpsNiveau.setFont(police2);
         monConteneur.add(chpsNiveau);
@@ -128,11 +138,11 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         monConteneur.add(chpsope);
         
         //Etiquette date et heure
-        DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy/MM/dd                                                    HH:mm:ss");
 		Date date = new Date();
 		horloge = new JLabel(format.format(date));
 		horloge.setForeground(Color.WHITE);
-		horloge.setBounds(225, -30, 200, 100);
+		horloge.setBounds(25,-30, 400, 100);
         monConteneur.add(horloge);
        
         //Création du menu
@@ -160,17 +170,18 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         res += "\nVotre but est de retrouver toutes les paires dont la somme fait le nombre choisit !";
         res += "\nCe jeu vous entraine donc à la fois votre mémoire et développe aussi votre capacité de calcul mental :)";
         res1= "- Jeu réalisé par Agathe Vincent, Harry Kalfon et Noa Portier \n-2022 - Projet Informatique - Insa LYON -";
+        res3="Veuillez d'abord choisir un type et un niveau de jeu !";
         
         //pour changer la couleur des joption
 		// UIManager.put("OptionPane.background",new ColorUIResource(54,66,230));
         //UIManager.put("Panel.background",new ColorUIResource(54,66,230));        
         
         //Fond d'écran - image        
-        icon = new ImageIcon("./Logo.png");
+        icon = new ImageIcon("./LogoPrinc.png");
         JLabel fond = new JLabel();
-        Image imageZoom = scaleImage(icon.getImage(), 400, 400);
+        Image imageZoom = scaleImage(icon.getImage(), 415, 465);
         fond.setIcon (new ImageIcon(imageZoom));
-        fond.setBounds(0,0,400,400);
+        fond.setBounds(0,0,415,465);
         monConteneur.add(fond);
         
         add(monConteneur);
@@ -184,11 +195,13 @@ public class FenetreNiveau extends JFrame implements ActionListener{
             chpsNiveau.setText("1");
             niveau = 1;
 			click1 = true;
-        }else if (e.getSource() == bouton2){
+        }
+        if (e.getSource() == bouton2){
             chpsNiveau.setText("2");
             niveau = 2;
 			click1 = true;
-        }else if (e.getSource() == bouton3){
+        }
+        if (e.getSource() == bouton3){
 			chpsNiveau.setText("3");
 			niveau = 3;
 			click1 = true;
@@ -198,21 +211,31 @@ public class FenetreNiveau extends JFrame implements ActionListener{
 			chpsOpe.setText("Addition");
 			operation = 1;	//1 pour le choix de l'addition
 			click2 = true;
-		}else if (e.getSource() == boutonsous){
+		}
+        if (e.getSource() == boutonsous){
 			chpsOpe.setText("Soustraction");
 			operation = 2;	//2 pour le choix de la soustraction
 			click2 = true;
 		}	
-        
+        if(e.getSource() == boutonJouer){
+            if(click1==false || click2==false){
+                JOptionPane.showMessageDialog(this,res3,"Attention",1,null); //si la personne clique sur jouer sans avoir remplit les conditions
+                jouer=false;
+            }else{
+            jouer=true;
+            }
+        }
         if (e.getSource()==regle){
             JOptionPane.showMessageDialog(this,res,"Règles du Jeu",1,null); 
-        }else if(e.getSource()==autre){
+        }
+        if(e.getSource()==autre){
             JOptionPane.showMessageDialog(this,res1,"Informations",1,null);
         }
         
         if(e.getSource() == quitter){
             System.exit(0);
         }
+        
     }
     
     public static Image scaleImage(Image source, int width, int height) {
