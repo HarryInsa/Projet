@@ -20,7 +20,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		
 		//Initialisation de la fenetre
 		this.setTitle("Fin de la partie");
-		this.setSize(480,480);
+		this.setSize(440,500);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		
@@ -36,7 +36,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		
 		//Etiquette du temps
 		temp = new JLabel();
-		temp.setBounds(250,110, 80, 50);
+		temp.setBounds(225,110, 80, 50);
 		temp.setFont(police);
         temp.setForeground(Color.WHITE);
 		fond.add(temp);
@@ -45,41 +45,41 @@ public class FenetreFin extends JFrame implements ActionListener{
 		
 		//Etiquette coups
 		JLabel coup = new JLabel("Vous avez gagné en " + coups + " coups");
-		coup.setBounds(155,60,300,100);
+		coup.setBounds(140,60,300,100);
 		coup.setFont(police);
 		coup.setForeground(Color.white);
 		fond.add(coup);
 		
 		//Etiquette Bravo
 		JLabel bravo = new JLabel("Bravo");
-		bravo.setBounds(205,50,100,50);
+		bravo.setBounds(185,50,100,50);
 		bravo.setFont(policeBravo);
 		bravo.setForeground(Color.white);
 		fond.add(bravo);
 		
 		//Etiquette tempsmis
 		JLabel tempsmis = new JLabel("Vous avez mis ");
-		tempsmis.setBounds(155,110,300,50);
+		tempsmis.setBounds(140,110,300,50);
 		tempsmis.setFont(police);
 		tempsmis.setForeground(Color.white);
 		fond.add(tempsmis);
 		
 		//Bouton nouvelle partie
 		rejoue = new JButton ("Rejouer !");
-		rejoue.setBounds(330, 380, 100, 50);
+		rejoue.setBounds(305, 380, 100, 50);
 		rejoue.addActionListener(this);
 		fond.add(rejoue);
 		
 		//Bouton quitter
 		quitter = new JButton ("Quitter !");
-		quitter.setBounds(50, 380, 90, 50);
+		quitter.setBounds(25, 380, 100, 50);
         quitter.setForeground(Color.red);
 		quitter.addActionListener(this);
 		fond.add(quitter);
 		
         icon = new ImageIcon("./fin.png");
         JLabel image = new JLabel(icon,JLabel.CENTER);
-        image.setSize(480,480);
+        image.setSize(430,490);
         fond.add(image);
         
 		this.setVisible(true);
@@ -118,7 +118,14 @@ public class FenetreFin extends JFrame implements ActionListener{
                 temp.setText(minutes + " min " + secondes + " secs");
             }
 		}else{
-			temp.setText(minutes + " mins " + secondes + " secs");
+			if(secondes==1){
+                temp.setText(minutes + " mins " + secondes + " sec");
+            }else if (secondes == 0){
+				temp.setText(minutes + " mins ");
+			}else{
+				
+                temp.setText(minutes + " mins " + secondes + " secs");
+            }
 		}
 	}		
 }	
