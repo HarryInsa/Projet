@@ -13,6 +13,7 @@ public class Principal {
 		
 		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
 		
+		//FenetreFin fenetrefin = new FenetreFin(5, 361);
 		while(fenetreniveau.estOuverte()){
 			while(fenetreniveau.click1 == false || fenetreniveau.click2 == false){
 				System.out.print("");
@@ -21,7 +22,7 @@ public class Principal {
                 System.out.print("");
             }
             
-            fenetreniveau.jouer=false;
+            fenetreniveau.jouer = false;
 			fenetreniveau.click1 = false;
 			fenetreniveau.click2 = false;
 			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation);
@@ -71,11 +72,16 @@ public class Principal {
 			
 			fenetre.click = false;
 			
-			//Methode si il y a eu un click sur l'un des boutons on recupère les 3 nouvelles valeurs
+			//Si il y a eu un click sur l'un des boutons on recupère les 3 nouvelles valeurs
 			while(!fenetre.click){
 				System.out.print("");
 			}
 			
+			//Verifier si c'est la même case que celle d'avant
+			while(doubleClic(a, k ,l)){
+				System.out.print("");
+			}
+				
 			b = fenetre.a;
 			m = fenetre.k;
 			n = fenetre.l;
@@ -113,5 +119,14 @@ public class Principal {
 			FenetreFin ffin = new FenetreFin(coups, fenetre.cpt);
 		}
 	}	
-
-} 
+	
+	//Vérifier si on clic deux fois sur la même case
+	public static boolean doubleClic (int a, int k, int l){
+		if(a == fenetre.a && k == fenetre.k && l == fenetre.l){
+			return true;
+		}else{
+			return false;
+		}
+	}	
+	
+}
