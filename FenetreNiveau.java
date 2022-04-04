@@ -140,7 +140,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         monConteneur.add(chpsope);
         
         //Etiquette date et heure
-        DateFormat format = new SimpleDateFormat("yyyy/MM/dd                                                    HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		horloge = new JLabel(format.format(date));
 		horloge.setForeground(Color.WHITE);
