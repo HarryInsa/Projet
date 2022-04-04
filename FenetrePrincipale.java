@@ -21,6 +21,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
     public Font policeMoyenne;
     public Font policePetite;
     public Font policeNbCle;
+     public ImageIcon icon;
 
     
 	public FenetrePrincipale (int niveau, int operation){
@@ -29,11 +30,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
         p = new partie (niveau, operation);
         
 		//police
-        policeTitre = new Font ("Harrington",Font.PLAIN,20); //titre
-        policeGrande = new Font ("Cambria", Font.BOLD,42); //police niveau 1
+        policeGrande = new Font ("Cambria", Font.BOLD,62); //police niveau 1
         policeMoyenne = new Font ("Cambria", Font.BOLD,32); //police niveau 2
         policePetite = new Font ("Cambria", Font.BOLD,22); //police niveau 3
-        policeNbCle = new Font(" Arial " , Font.PLAIN , 13); //police nombre cle
+        policeNbCle = new Font(" Arial " , Font.PLAIN , 20); //police nombre cle
         
 		//Initialisation de la fenetre
 		this.setTitle("THE MEMORY");
@@ -49,27 +49,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		JPanel fond = new JPanel();
 		fond.setBounds(0,0,700,700);
 		fond.setLayout(null);
-		fond.setBackground(new Color(25,96,238));
 		this.add(fond);
-		
-		//titre
-		JLabel titre = new JLabel("The Memory");
-        titre.setFont(policeTitre);
-		titre.setBounds(292,20,200,50);
-		titre.setForeground(Color.white);
-		fond.add(titre);
 		
 		//Temps
 		temps = new JLabel();
-		temps.setBounds(600, 20, 100,50);
+		temps.setBounds(560, 20, 150,50);
 		temps.setForeground(Color.white);
+		temps.setFont(policeNbCle);
 		fond.add(temps);
 		
 		//nombre clé
 		String z = Integer.toString(p.nombre);
 		JLabel cle = new JLabel("Nombre clé : "+z);
         cle.setFont(policeNbCle);
-		cle.setBounds(40,20,120,50);
+		cle.setBounds(15,20,150,50);
 		cle.setForeground(Color.white);
 		fond.add(cle);
 		
@@ -84,12 +77,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			for(int j=0 ; j < n ; j++){
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
-                lesBoutons[i][j].setBackground(new Color(121, 248, 248) );
+                //lesBoutons[i][j].setBackground(Color.white);
 				fond.add(lesBoutons[i][j]);		
                 choixPolice(lesBoutons[i][j]);
 				lesBoutons[i][j].addActionListener(this);
 			}
 		}
+		
+		//Fond d'écran - image        
+        icon = new ImageIcon("./logoJeu.png");
+        JLabel fondImage = new JLabel();
+        Image imageZoom = scaleImage(icon.getImage(), 690, 700);
+        fondImage.setIcon (new ImageIcon(imageZoom));
+        fondImage.setBounds(0,0,700,700);
+        fond.add(fondImage);
 		
 		this.setVisible(true);
 	}	
@@ -149,14 +150,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
         }    
     }
 	
-	//Affichage du temps
-	public void afficheTemps (){
-		
+public void afficheTemps (){
+		//Définition du temps
 		int minutes = (int)(cpt/60);
 		int secondes = (int)(cpt-minutes*60);
 		
 		if(minutes < 1){
-            if(secondes==1){
+            if(secondes==1 || secondes == 0){
                 temps.setText(secondes + " sec");
             }else{
                 temps.setText(secondes + " secs");
@@ -164,14 +164,26 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}else if(minutes == 1){
             if(secondes==1){
                 temps.setText(minutes + " min " + secondes + " sec");
-            }else{
-                
+            }else if (secondes == 0){
+				temps.setText(minutes + " min ");
+			}else{
+				
                 temps.setText(minutes + " min " + secondes + " secs");
             }
 		}else{
-			temps.setText(minutes + " mins " + secondes + " secs");
+			if(secondes==1){
+                temps.setText(minutes + " mins " + secondes + " sec");
+            }else if (secondes == 0){
+				temps.setText(minutes + " mins ");
+			}else{
+				
+                temps.setText(minutes + " mins " + secondes + " secs");
+            }
 		}
-		
 	}
+	
+	public static Image scaleImage(Image source, int width, int height) {
+	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
+    }
 	
 }
