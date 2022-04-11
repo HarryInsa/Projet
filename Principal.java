@@ -1,3 +1,8 @@
+//Bibliothèques
+import sun.audio.*;
+import java.io.*;
+
+
 public class Principal {
 	
 	public static FenetrePrincipale fenetre;
@@ -5,15 +10,18 @@ public class Principal {
 	
     public static void main (String [] args){
 		
+		
+		
 		FenetreAccueil fenetreaccueil = new FenetreAccueil();
 		
 		while(!fenetreaccueil.click){
-			System.out.print("");
+			if(fenetreaccueil.sound){
+				Sound.play("musique.wav");
+			}
 		}
 		
 		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
 		
-		//FenetreFin fenetrefin = new FenetreFin(5, 361);
 		while(fenetreniveau.estOuverte()){
 			while(fenetreniveau.click1 == false || fenetreniveau.click2 == false){
 				System.out.print("");
@@ -56,7 +64,6 @@ public class Principal {
 		while (!fin){
 			
 			//Lancement du timer
-			fenetre.mt.start();
 			
 			//Debloquer les clics
 			fenetre.debloquerClic();
@@ -92,11 +99,6 @@ public class Principal {
 			fenetre.bloquerClic();
 			
 			boolean retourne = p.verifList(a,b);
-			
-			//Attendre 2secs
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException ie) {}
             
             //pour eviter pb d'affichage
             
@@ -105,6 +107,10 @@ public class Principal {
 				fenetre.lesBoutons[m][n].setVisible(false);
             }
 			if(!retourne){		//Si retourne false il faut recacher les nombres
+				//Attendre 2secs
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException ie) {}
 				fenetre.lesBoutons[k][l].setText("");
 				fenetre.lesBoutons[m][n].setText("");
 			}
@@ -128,5 +134,9 @@ public class Principal {
 			return false;
 		}
 	}	
+
+	//Temps
+	//Son qui marche
+	//GIF + Affichage
 	
 }
