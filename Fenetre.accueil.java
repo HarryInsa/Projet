@@ -26,6 +26,9 @@ public class FenetreAccueil extends JFrame implements ActionListener{
     public JButton continuer;
     public boolean click = false;
     public FenetreNiveau fenetreniveau;
+    public ImageIcon iconSon;
+    public JButton son;
+    public boolean sound = false;
 	
 	public FenetreAccueil (){
         
@@ -35,7 +38,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         this.setTitle("Bienvenue - The Memory");
         this.setSize(415,465);
 		this.setLocationRelativeTo(null);
-		//this.setResizable(false);
+		this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //définition des polices d'écriture
@@ -46,6 +49,16 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         //conteneur principal - se place au centre
         JPanel monConteneur = new JPanel();
         monConteneur.setLayout(null);
+        
+        //Bouton son
+		iconSon = new ImageIcon("./son.png");
+        son = new JButton();
+        Image imageSon = scaleImage(iconSon.getImage(), 50, 50);
+        son.setIcon(new ImageIcon(imageSon));
+        son.setBounds(350,0, 50, 50);
+        son.setBackground(Color.WHITE);
+        son.addActionListener(this);
+        monConteneur.add(son);
         
         
         //Bouton démarrer
@@ -59,8 +72,6 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         //Fond d'écran - image        
         icon = new ImageIcon("./debut.gif");
         JLabel fond = new JLabel(icon,JLabel.CENTER);
-        //fond.setIcon (icon);
-       //fond.setLocation(0,0);
         fond.setSize(415,465);
         monConteneur.add(fond);
         
@@ -75,7 +86,15 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 			fenetreniveau = new FenetreNiveau();
 			click = true;
 			this.dispose();
-		}	
+		}
+		
+		if(e.getSource() == son){
+			sound = true;
+		}		
 	}	
+	
+	 public static Image scaleImage(Image source, int width, int height) {
+	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
+    }
 	
 }	
