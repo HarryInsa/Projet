@@ -2,26 +2,28 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.LinkedList; 
+import java.util.*;
 
-public class FenetrePrincipale extends JFrame implements ActionListener{
+public class FenetrePrincipale extends JFrame implements ActionListener {
 	
 	//Attributs
 	public JButton [][] lesBoutons;
-	public Timer mt;
+	public TimerTask task;
 	public partie p;
 	public int a;
 	public int k;
 	public int l;
 	public boolean click = false;
-	public int cpt =0;
+	public int cpt = 0;
 	public JLabel temps;
     public Font policeTitre;
     public Font policeGrande;
     public Font policeMoyenne;
     public Font policePetite;
     public Font policeNbCle;
-     public ImageIcon icon;
+    public Font policeTimer;
+    public ImageIcon icon;
+    public static int deltaT = 1000;
 
     
 	public FenetrePrincipale (int niveau, int operation){
@@ -32,8 +34,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		//police
         policeGrande = new Font ("Cambria", Font.BOLD,62); //police niveau 1
         policeMoyenne = new Font ("Cambria", Font.BOLD,32); //police niveau 2
-        policePetite = new Font ("Cambria", Font.BOLD,22); //police niveau 3
+        policePetite = new Font ("Cambria", Font.BOLD,20); //police niveau 3
         policeNbCle = new Font(" Arial " , Font.PLAIN , 20); //police nombre cle
+        policeTimer = new Font(" Arial " , Font.PLAIN , 18); //police nombre cle
         
 		//Initialisation de la fenetre
 		this.setTitle("THE MEMORY");
@@ -41,9 +44,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Initialisation du timer
-		mt = new Timer (1000, this);
 		
 		//Panneau du fond
 		JPanel fond = new JPanel();
@@ -55,7 +55,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		temps = new JLabel();
 		temps.setBounds(560, 20, 150,50);
 		temps.setForeground(Color.white);
-		temps.setFont(policeNbCle);
+		temps.setFont(policeTimer);
 		fond.add(temps);
 		
 		//nombre clé
@@ -97,7 +97,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	
 	public void actionPerformed (ActionEvent e){
 		
-		cpt++;
 		afficheTemps();
 		
 		for(int i=0 ; i < lesBoutons.length ; i++){
@@ -150,10 +149,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
         }    
     }
 	
-public void afficheTemps (){
-		//Définition du temps
-		int minutes = (int)(cpt/60);
-		int secondes = (int)(cpt-minutes*60);
+	public void afficheTemps (){
+		
+		int minutes = 0;
+		int secondes = 0;
 		
 		if(minutes < 1){
             if(secondes==1 || secondes == 0){
