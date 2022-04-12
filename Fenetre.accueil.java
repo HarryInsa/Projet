@@ -23,11 +23,13 @@ public class FenetreAccueil extends JFrame implements ActionListener{
     public FenetreNiveau fenetreniveau;
     public ImageIcon icon, iconSonOn, iconSonOff;
     public Image imageSonOn, imageSonOff;
-    public Sound leSon;
+    public Sound SonDebut, leSon;
 	
 	public FenetreAccueil (Sound leSon, boolean b){
         
         this.b = b;
+        this.SonDebut = new Sound("generique.wav");
+        SonDebut.jouer();
         this.leSon = leSon;
         this.pack();
         
@@ -88,7 +90,9 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 	
 	public void actionPerformed (ActionEvent e){
 		if(e.getSource() == continuer){
-			fenetreniveau = new FenetreNiveau(leSon, b);
+			fenetreniveau = new FenetreNiveau(leSon, false);
+			leSon.jouerEnBoucle();
+			SonDebut.arreter();
 			click = true;
 			this.dispose();
 		}
@@ -105,12 +109,12 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 	//Arreter ou remmetre la musique
 	public void sonOnOff (boolean b){
 		if(b){
-			leSon.jouerEnBoucle();
+			SonDebut.jouer();
 			son.setIcon(new ImageIcon(imageSonOn));
 			this.b = false;
 		}else{
 			this.b = true;
-			leSon.arreter();
+			SonDebut.arreter();
 			son.setIcon(new ImageIcon(imageSonOff));
 		}		
 	}	
