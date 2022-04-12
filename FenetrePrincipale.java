@@ -3,40 +3,38 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.text.*;
 
 public class FenetrePrincipale extends JFrame implements ActionListener {
 	
 	//Attributs
-	public JButton [][] lesBoutons;
-	public TimerTask task;
-	public partie p;
-	public int a;
-	public int k;
-	public int l;
-	public boolean click = false;
-	public int cpt = 0;
+	public Font policeTitre, policeNiveau1, policeNiveau2, policeNiveau3, policeCentaine, policeNbCle, policeTempsdeJeu;
+    public int a, k, l, tempsdeJeu;
+    public long start;
+	public javax.swing.Timer mt;
 	public JLabel temps;
-    public Font policeTitre;
-    public Font policeGrande;
-    public Font policeMoyenne;
-    public Font policePetite;
-    public Font policeNbCle;
-    public Font policeTimer;
-    public ImageIcon icon;
-    public static int deltaT = 1000;
-
+    public JButton [][] lesBoutons;
+	public partie p;
+	public boolean click = false, b;
+    public ImageIcon iconSonOn, iconSonOff, icon;
+	public Image imageSonOn, imageSonOff;
+	public JButton son;
+	public Sound leSon;
     
-	public FenetrePrincipale (int niveau, int operation){
+	public FenetrePrincipale (int niveau, int operation, Sound leSon, boolean b){
 		
 		//Instanciation partie
         p = new partie (niveau, operation);
+        this.b = b;
+		this.leSon = leSon;
         
-		//police
-        policeGrande = new Font ("Cambria", Font.BOLD,62); //police niveau 1
-        policeMoyenne = new Font ("Cambria", Font.BOLD,32); //police niveau 2
-        policePetite = new Font ("Cambria", Font.BOLD,20); //police niveau 3
-        policeNbCle = new Font(" Arial " , Font.PLAIN , 20); //police nombre cle
-        policeTimer = new Font(" Arial " , Font.PLAIN , 18); //police nombre cle
+		//Définition des polices
+        policeNiveau1 = new Font ("Cambria", Font.PLAIN, 50);
+        policeNiveau2 = new Font ("Cambria", Font.PLAIN, 30);
+        policeNiveau3 = new Font ("Cambria", Font.PLAIN, 17);
+        policeCentaine = new Font ("Cambria",Font.PLAIN, 14);
+        policeNbCle = new Font("Cambria", Font.PLAIN, 22);
+        policeTempsdeJeu = new Font("Cambria", Font.PLAIN, 18);
         
 		//Initialisation de la fenetre
 		this.setTitle("THE MEMORY");
@@ -44,6 +42,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(new ImageIcon(FenetreAccueil.class.getResource("M.png")).getImage());
+		
+		//Initialisation du temps de jeu
+		mt = new javax.swing.Timer (1000,this);
+		start = System.currentTimeMillis();
 		
 		//Panneau du fond
 		JPanel fond = new JPanel();
@@ -51,22 +54,43 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		fond.setLayout(null);
 		this.add(fond);
 		
-		//Temps
+		//Bouton son
+		iconSonOn = new ImageIcon("./SonOn.png");
+        imageSonOn = scaleImage(iconSonOn.getImage(), 30, 30);
+        
+        iconSonOff = new ImageIcon("./SonOff.png");
+        imageSonOff = scaleImage(iconSonOff.getImage(), 30, 30);
+        
+        son = new JButton();
+        son.setBounds(655,0, 30, 30);
+        son.setBackground(Color.WHITE);
+        
+        if(!b){
+			son.setIcon(new ImageIcon(imageSonOn));
+        }else{
+			son.setIcon(new ImageIcon(imageSonOff));
+		}	
+        
+        son.addActionListener(this);
+        fond.add(son);
+		
+		//Affichage du temps de jeu
 		temps = new JLabel();
 		temps.setBounds(560, 20, 150,50);
 		temps.setForeground(Color.white);
-		temps.setFont(policeTimer);
+		temps.setFont(policeTempsdeJeu);
+		temps.setHorizontalAlignment(SwingConstants.CENTER);
 		fond.add(temps);
 		
-		//nombre clé
+		//Affichage du nombre clé
 		String z = Integer.toString(p.nombre);
 		JLabel cle = new JLabel("Nombre clé : "+z);
         cle.setFont(policeNbCle);
-		cle.setBounds(15,20,150,50);
+		cle.setBounds(5,20,150,50);
 		cle.setForeground(Color.white);
 		fond.add(cle);
 		
-		//Tableau de boutons
+		//Création et affichage du tableau de boutons
 		int n = (int)(Math.sqrt((p.nombrePair)*2));
 		int t = p.taillebouton;
 		lesBoutons = new JButton[n][n];		
@@ -77,9 +101,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 			for(int j=0 ; j < n ; j++){
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
-                //lesBoutons[i][j].setBackground(Color.white);
 				fond.add(lesBoutons[i][j]);		
-                choixPolice(lesBoutons[i][j]);
+                choixPolice(lesBoutons[i][j], i, j);
 				lesBoutons[i][j].addActionListener(this);
 			}
 		}
@@ -110,6 +133,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 			}
 		}
 		
+		if(e.getSource() == son){
+			sonOnOff(b);
+		}	
+		
 	}
 	
 	//Récupère le nombre choisit et l'affiche sur le bouton
@@ -138,21 +165,29 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		}
     }
     
-    public void choixPolice(JButton b){
-        switch (p.niveau){
-            case 1 :
-                b.setFont(policeGrande);
-            case 2 :
-                b.setFont(policeMoyenne);
-            case 3 : 
-                b.setFont(policePetite);
-        }    
+    //Choix de la taille de la police selon le niveau
+    public void choixPolice(JButton b, int i, int j){
+        if(p.niveau == 1){
+			b.setFont(policeNiveau1);
+		}else if(p.niveau == 2){
+			b.setFont(policeNiveau2);
+        }else{
+			b.setFont(policeNiveau3);
+		}	
+        
+        if(String.valueOf(p.tab.jeu[i][j]).length() >= 3){
+			b.setFont(policeCentaine);
+		}	
     }
 	
+	//Calcul le temps écoulé et l'affiche
 	public void afficheTemps (){
 		
-		int minutes = 0;
-		int secondes = 0;
+		long actuel = System.currentTimeMillis();
+		tempsdeJeu = (int)(actuel - start)/1000;
+		int minutes = (int)(tempsdeJeu/60);
+		int secondes = (int)(tempsdeJeu - 60*minutes);
+		
 		
 		if(minutes < 1){
             if(secondes==1 || secondes == 0){
@@ -184,5 +219,18 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	public static Image scaleImage(Image source, int width, int height) {
 	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
     }
+	
+	//Arreter ou remmetre la musique	
+	public void sonOnOff (boolean b){
+		if(b){
+			leSon.jouerEnBoucle();
+			son.setIcon(new ImageIcon(imageSonOn));
+			this.b = false;
+		}else{
+			leSon.arreter();
+			son.setIcon(new ImageIcon(imageSonOff));
+			this.b = true;
+		}		
+	}	
 	
 }
