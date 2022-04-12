@@ -6,13 +6,14 @@ import java.awt.event.* ;
 public class FenetreFin extends JFrame implements ActionListener{
 	
 	//Attributs
-	public JButton rejoue;
-	public JButton quitter;
-    public ImageIcon icon;
-    public Font police;
-    public Font policeBravo;
-    public JLabel temp;
+	public Font police, policeBravo;
+	public JButton rejoue, quitter, son;
+	public JLabel temp;
     public int temps;
+    public boolean b;
+    public Sound SonFin;
+    public ImageIcon iconSonOn, iconSonOff, icon;
+    public Image imageSonOn, imageSonOff;
 	
 	public FenetreFin (int coups, int temps){
 		
@@ -23,9 +24,11 @@ public class FenetreFin extends JFrame implements ActionListener{
 		this.setSize(440,500);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
+		this.setIconImage(new ImageIcon(FenetreAccueil.class.getResource("M.png")).getImage());
 		
-		police = new Font(" Arial " , Font.PLAIN , 12);
-		policeBravo = new Font(" Arial " , Font.PLAIN , 24);
+		//Définition des polices
+		police = new Font("Cambria" , Font.PLAIN , 14);
+		policeBravo = new Font("Cambria" , Font.PLAIN , 26);
 		
 		//Fond
 		JPanel fond = new JPanel ();
@@ -33,6 +36,24 @@ public class FenetreFin extends JFrame implements ActionListener{
 		fond.setLayout(null);
 		this.add(fond);
         
+		//Définition du son
+		SonFin = new Sound("musique2.wav");
+		SonFin.jouerEnBoucle();
+		b = false;
+		
+		//Bouton son
+		iconSonOn = new ImageIcon("./SonOn.png");
+        son = new JButton();
+        imageSonOn = scaleImage(iconSonOn.getImage(), 30, 30);
+        son.setIcon(new ImageIcon(imageSonOn));
+        son.setBounds(370,0, 30, 30);
+        son.setBackground(Color.WHITE);
+        son.addActionListener(this);
+        fond.add(son);
+        
+        //Bouton non son
+        iconSonOff = new ImageIcon("./SonOff.png");
+        imageSonOff = scaleImage(iconSonOff.getImage(), 30, 30);
 		
 		//Etiquette du temps
 		temp = new JLabel();
@@ -127,5 +148,25 @@ public class FenetreFin extends JFrame implements ActionListener{
                 temp.setText(minutes + " mins " + secondes + " secs");
             }
 		}
-	}		
+	}
+	
+	public static Image scaleImage(Image source, int width, int height) {
+	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
+    }
+	
+	//Arreter ou remmetre la musique
+	public void sonOnOff (boolean b){
+		if(b){
+			SonFin.jouerEnBoucle();
+			son.setIcon(new ImageIcon(imageSonOn));
+			this.b = false;
+		}else{
+			this.b = true;
+			SonFin.arreter();
+			son.setIcon(new ImageIcon(imageSonOff));
+		}		
+	}	
+	
+	//Revoir police, Jlabel taille, musique vainqueur
+			
 }	
