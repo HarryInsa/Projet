@@ -28,7 +28,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		
 		//Définition des polices
 		police = new Font("Cambria" , Font.PLAIN , 14);
-		policeBravo = new Font("Cambria" , Font.PLAIN , 26);
+		policeBravo = new Font("Cambria" , Font.PLAIN , 30);
 		
 		//Fond
 		JPanel fond = new JPanel ();
@@ -37,7 +37,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		this.add(fond);
         
 		//Définition du son
-		SonFin = new Sound("musique2.wav");
+		SonFin = new Sound("sonfin.wav");
 		SonFin.jouerEnBoucle();
 		b = false;
 		
@@ -46,7 +46,7 @@ public class FenetreFin extends JFrame implements ActionListener{
         son = new JButton();
         imageSonOn = scaleImage(iconSonOn.getImage(), 30, 30);
         son.setIcon(new ImageIcon(imageSonOn));
-        son.setBounds(370,0, 30, 30);
+        son.setBounds(395,0, 30, 30);
         son.setBackground(Color.WHITE);
         son.addActionListener(this);
         fond.add(son);
@@ -57,30 +57,29 @@ public class FenetreFin extends JFrame implements ActionListener{
 		
 		//Etiquette du temps
 		temp = new JLabel();
-		temp.setBounds(225,110, 80, 50);
+		temp.setBounds(220,110, 100, 50);
 		temp.setFont(police);
         temp.setForeground(Color.WHITE);
 		fond.add(temp);
 		calculTemps();
 		
-		
 		//Etiquette coups
 		JLabel coup = new JLabel("Vous avez gagné en " + coups + " coups");
-		coup.setBounds(140,60,300,100);
+		coup.setBounds(135,60,300,100);
 		coup.setFont(police);
 		coup.setForeground(Color.white);
 		fond.add(coup);
 		
 		//Etiquette Bravo
-		JLabel bravo = new JLabel("Bravo");
-		bravo.setBounds(185,50,100,50);
+		JLabel bravo = new JLabel("Bravo !");
+		bravo.setBounds(180,50,100,50);
 		bravo.setFont(policeBravo);
 		bravo.setForeground(Color.white);
 		fond.add(bravo);
 		
 		//Etiquette tempsmis
 		JLabel tempsmis = new JLabel("Vous avez mis ");
-		tempsmis.setBounds(140,110,300,50);
+		tempsmis.setBounds(130,110,300,50);
 		tempsmis.setFont(police);
 		tempsmis.setForeground(Color.white);
 		fond.add(tempsmis);
