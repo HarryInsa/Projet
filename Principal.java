@@ -12,7 +12,6 @@ public class Principal {
 	public static void main (String [] args){
 		
 		leSon = new Sound("musique1.wav");
-		leSon.jouerEnBoucle();
 		boolean b = false;
 		
 		FenetreAccueil fenetreaccueil = new FenetreAccueil(leSon, b);
