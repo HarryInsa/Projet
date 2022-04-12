@@ -2,22 +2,23 @@
 import sun.audio.*;
 import java.io.*;
 
-
 public class Principal {
 	
 	public static FenetrePrincipale fenetre;
-	public static partie p; 
+	public static partie p;
+	public static Sound leSon;
 	
-    public static void main (String [] args){
+	
+	public static void main (String [] args){
 		
+		leSon = new Sound("musique1.wav");
+		leSon.jouerEnBoucle();
+		boolean b = false;
 		
-		
-		FenetreAccueil fenetreaccueil = new FenetreAccueil();
+		FenetreAccueil fenetreaccueil = new FenetreAccueil(leSon, b);
 		
 		while(!fenetreaccueil.click){
-			if(fenetreaccueil.sound){
-				Sound.play("musique.wav");
-			}
+			System.out.print("");
 		}
 		
 		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
@@ -26,22 +27,21 @@ public class Principal {
 			while(fenetreniveau.click1 == false || fenetreniveau.click2 == false){
 				System.out.print("");
 			}
-			while(fenetreniveau.jouer== false){
-                System.out.print("");
-            }
-            
-            fenetreniveau.jouer = false;
+			while(fenetreniveau.jouer == false){
+				System.out.print("");
+			}
+			fenetreniveau.jouer = false;
 			fenetreniveau.click1 = false;
 			fenetreniveau.click2 = false;
-			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation);
+			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation, leSon, fenetreniveau.b);
 			p = fenetre.p;
 			lancerJeu();
 		}
+			
+	}
 		
-    }
-    
-    
-    public static void lancerJeu (){
+		
+	public static void lancerJeu (){
 		
 		boolean continu = false;
 		
@@ -57,13 +57,14 @@ public class Principal {
 		int b = 0;	//Valeur de la case
 		int n = 0;	//Indice i de sa position
 		int m = 0;	//Indice j de sa position
-		
+			
 		//Compteur du nombre de coups
 		int coups = 0;
 		
 		while (!fin){
 			
 			//Lancement du timer
+			fenetre.mt.start();
 			
 			//Debloquer les clics
 			fenetre.debloquerClic();
@@ -88,7 +89,7 @@ public class Principal {
 			while(doubleClic(a, k ,l)){
 				System.out.print("");
 			}
-				
+			
 			b = fenetre.a;
 			m = fenetre.k;
 			n = fenetre.l;
@@ -99,13 +100,14 @@ public class Principal {
 			fenetre.bloquerClic();
 			
 			boolean retourne = p.verifList(a,b);
-            
-            //pour eviter pb d'affichage
-            
+			
+			//pour eviter pb d'affichage
+			
 			if(retourne){	//si retourne true il faut supprimer/cacher les 2 boutons
 				fenetre.lesBoutons[k][l].setVisible(false);
 				fenetre.lesBoutons[m][n].setVisible(false);
-            }
+			}
+			
 			if(!retourne){		//Si retourne false il faut recacher les nombres
 				//Attendre 2secs
 				try {
@@ -119,13 +121,14 @@ public class Principal {
 			fin = p.verifPartie();
 			coups++;			
 		}
-
+		
 		if(fin){
+			leSon.arreter();
 			fenetre.dispose();
-			FenetreFin ffin = new FenetreFin(coups, fenetre.cpt);
+			FenetreFin ffin = new FenetreFin(coups, fenetre.tempsdeJeu);
 		}
 	}	
-	
+		
 	//Vérifier si on clic deux fois sur la même case
 	public static boolean doubleClic (int a, int k, int l){
 		if(a == fenetre.a && k == fenetre.k && l == fenetre.l){
@@ -133,10 +136,9 @@ public class Principal {
 		}else{
 			return false;
 		}
-	}	
-
-	//Temps
-	//Son qui marche
-	//GIF + Affichage
+	}
 	
+	//GIF + Affichage
+	//icon son fond à mettre selon le fond de la page
+		
 }
