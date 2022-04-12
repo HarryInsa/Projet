@@ -16,7 +16,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JMenu menu;
     public JMenuBar menubar;
     public JMenuItem regle, autre;
-    public String reglejeu, inforamtion, erreur;
+    public String reglejeu, information, erreur;
     public JButton bouton1, bouton2, bouton3, boutonadd, boutonsous, quitter, boutonJouer, son;
 	public JLabel chpsNiveau, chpsOpe, horloge;
 	public int niveau = 0, operation = 0;
@@ -179,10 +179,8 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         this.setJMenuBar(menubar);
 		
         //Texte de présentation du menu
-        reglejeu = "Ce jeu est un memory où il faut former des pairs en faisant au choix des sommes ou des soustractions. \nL'ordinateur choisit un nombre entre 10 et 70 selon le niveau choisit.";
-        reglejeu += "\nLe nombre de pairs à retrouver dépend du niveau choisit !";
-        reglejeu += "\nLe but du jeu est de retrouver toutes les pairs. Ce jeu vous entraine donc à la fois votre mémoire et développe aussi votre capacité de calcul mental :)";
-        inforamtion = "- Jeu réalisé par Agathe Vincent, Harry Kalfon et Noa Portier - \n- 2022 - Projet Informatique - Insa LYON -";
+        reglejeu = "<html> Ce jeu est un memory où il faut former des pairs en faisant au choix des sommes ou des soustractions. <br> L'ordinateur choisit un nombre entre 10 et 70 selon le niveau choisit.<br>Le nombre de pairs à retrouver dépend du niveau choisit ! <br> Le but du jeu est de retrouver toutes les pairs. Ce jeu vous entraine donc à la fois votre mémoire et développe aussi votre capacité de calcul mental :) </html>";
+        information = "<html>- Jeu réalisé par Agathe Vincent, Harry Kalfon et Noa Portier - <br> - 2022 - Projet Informatique - Insa LYON - </html>";
         erreur = "Veuillez d'abord choisir un type et un niveau de jeu !";
         
         //Fond d'écran - image        
@@ -256,7 +254,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
             UIManager.put("OptionPane.background", new ColorUIResource(255, 255, 255));
 			UIManager.put("Panel.background", new ColorUIResource(255, 255, 255));
 			UIManager.put("OptionPane.messageFont", new FontUIResource(new Font ("Cambria", Font.PLAIN , 14)));
-            JOptionPane.showMessageDialog(this, inforamtion, "Information", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(lum2));
+            JOptionPane.showMessageDialog(this, information, "Information", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(lum2));
         }
         
         if(e.getSource() == quitter){
