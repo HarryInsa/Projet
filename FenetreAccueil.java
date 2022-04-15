@@ -19,18 +19,17 @@ public class FenetreAccueil extends JFrame implements ActionListener{
     public JMenuItem regle, autre;
     public JLabel horloge;
     public JButton continuer, son;
-    public boolean click = false, b;
+    public boolean click = false, sonOn;
     public FenetreNiveau fenetreniveau;
     public ImageIcon icon, iconSonOn, iconSonOff;
     public Image imageSonOn, imageSonOff;
-    public Sound SonDebut, leSon;
+    public Sound SonDebut;
 	
-	public FenetreAccueil (Sound leSon, boolean b){
+	public FenetreAccueil (boolean sonOn){
         
-        this.b = b;
+        this.sonOn = sonOn;
         this.SonDebut = new Sound("generique.wav");
         SonDebut.jouer();
-        this.leSon = leSon;
         this.pack();
         
 		//Définition de la fenetre
@@ -59,7 +58,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         son.setBounds(370,0, 30, 30);
         son.setBackground(Color.WHITE);
         
-        if(!b){
+        if(sonOn){
 			son.setIcon(new ImageIcon(imageSonOn));
         }else{
 			son.setIcon(new ImageIcon(imageSonOff));
@@ -71,17 +70,16 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         //Bouton démarrer
         continuer = new JButton("Démarrer");
         continuer.setBounds (150, 350, 100, 50);
-        continuer.setForeground(Color.BLUE);
+        continuer.setForeground(new Color(253, 212, 65));
         continuer.setFont(police);
         monConteneur.add(continuer);
         continuer.addActionListener(this);
         
         //Fond d'écran - image        
-        icon = new ImageIcon("./debut.gif");
+        icon = new ImageIcon("./ImageAccueil.gif");
         JLabel fond = new JLabel(icon,JLabel.CENTER);
         fond.setSize(415,465);
         monConteneur.add(fond);
-        
         
         add(monConteneur);
         this.setVisible(true);
@@ -90,15 +88,14 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 	
 	public void actionPerformed (ActionEvent e){
 		if(e.getSource() == continuer){
-			fenetreniveau = new FenetreNiveau(leSon, false);
-			leSon.jouerEnBoucle();
+			fenetreniveau = new FenetreNiveau(sonOn);
 			SonDebut.arreter();
 			click = true;
 			this.dispose();
 		}
 		
 		if(e.getSource() == son){
-			sonOnOff(b);
+			sonOnOff();
 		}	
 	}	
 	
@@ -107,15 +104,15 @@ public class FenetreAccueil extends JFrame implements ActionListener{
     }
 	
 	//Arreter ou remmetre la musique
-	public void sonOnOff (boolean b){
-		if(b){
-			SonDebut.jouer();
-			son.setIcon(new ImageIcon(imageSonOn));
-			this.b = false;
-		}else{
-			this.b = true;
+	public void sonOnOff (){
+		if(sonOn){
 			SonDebut.arreter();
 			son.setIcon(new ImageIcon(imageSonOff));
+			this.sonOn = false;
+		}else{
+			this.sonOn = true;
+			SonDebut.jouer();
+			son.setIcon(new ImageIcon(imageSonOn));
 		}		
 	}	
 }	
