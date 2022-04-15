@@ -1,18 +1,18 @@
 //Bibliothèque
 import java.util.* ;
 
-public class partie{
+public class Partie{
 	
 	//Attributs
 	public int nombre;
 	public int nombrePair;
 	public LinkedList<Pair> list;
-	public plateau tab;
+	public Plateau tab;
 	public int taillebouton;
 	public int niveau;
 	public int operation;
     
-	public partie (int niveau, int operation){
+	public Partie (int niveau, int operation){
         
         this.niveau = niveau;
         this.operation = operation;
@@ -26,7 +26,7 @@ public class partie{
 		}
 		
 		//Création du plateau de jeu
-		tab = new plateau (list);
+		tab = new Plateau (list);
 		
 	}
 	
@@ -34,16 +34,16 @@ public class partie{
 	public void creationNiveau (int niveau){
 		if (niveau == 1){
 			nombrePair = 8;
-			taillebouton = 90;
-			nombre = (int)(Math.random()*20+10);
+			taillebouton = 95;
+			nombre = (int)(Math.random()*20+10);	//nombre aléatoire netre 10 et 30
 		}else if (niveau == 2){
 			nombrePair = 18;
-			taillebouton = 70;
-			nombre = (int)(Math.random()*30+20);
+			taillebouton = 75;
+			nombre = (int)(Math.random()*30+20);	//nombre aléatoire netre 20 et 50
 		}else{
 			nombrePair = 32;
-			taillebouton = 50;
-			nombre = (int)(Math.random()*40+30);
+			taillebouton = 55;
+			nombre = (int)(Math.random()*40+30);	//nombre aléatoire netre 30 et 70
 		}
 	}
 	
