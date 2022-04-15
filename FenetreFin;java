@@ -10,14 +10,17 @@ public class FenetreFin extends JFrame implements ActionListener{
 	public JButton rejoue, quitter, son;
 	public JLabel temp;
     public int temps;
-    public boolean b;
+    public boolean sonOn;
     public Sound SonFin;
     public ImageIcon iconSonOn, iconSonOff, icon;
     public Image imageSonOn, imageSonOff;
+    public FenetreNiveau fenetre;
 	
-	public FenetreFin (int coups, int temps){
+	public FenetreFin (int coups, int temps, FenetreNiveau fenetre, boolean sonOn){
 		
+		this.fenetre = fenetre;
 		this.temps = temps;
+		this.sonOn = sonOn;
 		
 		//Initialisation de la fenetre
 		this.setTitle("Fin de la partie");
@@ -36,24 +39,31 @@ public class FenetreFin extends JFrame implements ActionListener{
 		fond.setLayout(null);
 		this.add(fond);
         
-		//Définition du son
-		SonFin = new Sound("sonfin.wav");
-		SonFin.jouerEnBoucle();
-		b = false;
-		
-		//Bouton son
+        //Bouton son
 		iconSonOn = new ImageIcon("./SonOn.png");
-        son = new JButton();
         imageSonOn = scaleImage(iconSonOn.getImage(), 30, 30);
-        son.setIcon(new ImageIcon(imageSonOn));
+        
+        iconSonOff = new ImageIcon("./SonOff.png");
+        imageSonOff = scaleImage(iconSonOff.getImage(), 30, 30);
+        
+        son = new JButton();
         son.setBounds(395,0, 30, 30);
         son.setBackground(Color.WHITE);
         son.addActionListener(this);
         fond.add(son);
-        
-        //Bouton non son
-        iconSonOff = new ImageIcon("./SonOff.png");
-        imageSonOff = scaleImage(iconSonOff.getImage(), 30, 30);
+		
+		//Définition du son
+		SonFin = new Sound("sonfin.wav");
+		
+		if(sonOn){
+			son.setIcon(new ImageIcon(imageSonOn));
+			SonFin.jouerEnBoucle();
+        }else{
+			son.setIcon(new ImageIcon(imageSonOff));
+			SonFin.arreter();
+		}	
+		
+		
 		
 		//Etiquette du temps
 		temp = new JLabel();
@@ -97,7 +107,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		quitter.addActionListener(this);
 		fond.add(quitter);
 		
-        icon = new ImageIcon("./fin.png");
+        icon = new ImageIcon("./ImageFin.png");
         JLabel image = new JLabel(icon,JLabel.CENTER);
         image.setSize(430,490);
         fond.add(image);
@@ -109,11 +119,15 @@ public class FenetreFin extends JFrame implements ActionListener{
 		if(e.getSource() == rejoue){
 			//Ferme cette fenetre
 			this.dispose();
-			
+			SonFin.arreter();
+			relancerSon();
 		}	
 		if(e.getSource() == quitter){
 			//Ferme toute les fenetres 
 			System.exit(0);
+		}	
+		if(e.getSource() == son){
+			sonOnOff();
 		}	
 	}
 	
@@ -143,7 +157,6 @@ public class FenetreFin extends JFrame implements ActionListener{
             }else if (secondes == 0){
 				temp.setText(minutes + " mins ");
 			}else{
-				
                 temp.setText(minutes + " mins " + secondes + " secs");
             }
 		}
@@ -154,18 +167,28 @@ public class FenetreFin extends JFrame implements ActionListener{
     }
 	
 	//Arreter ou remmetre la musique
-	public void sonOnOff (boolean b){
-		if(b){
-			SonFin.jouerEnBoucle();
-			son.setIcon(new ImageIcon(imageSonOn));
-			this.b = false;
-		}else{
-			this.b = true;
+	public void sonOnOff (){
+		if(sonOn){
 			SonFin.arreter();
 			son.setIcon(new ImageIcon(imageSonOff));
+			this.sonOn = false;
+		}else{
+			this.sonOn = true;
+			SonFin.jouer();
+			son.setIcon(new ImageIcon(imageSonOn));
 		}		
 	}	
 	
-	//Revoir police, Jlabel taille, musique vainqueur
-			
+	public void relancerSon (){
+		if(sonOn){
+			fenetre.leSon.arreter();
+			fenetre.son.setIcon(new ImageIcon(imageSonOff));
+			fenetre.sonOn = false;
+		}else{
+			fenetre.sonOn = true;
+			fenetre.leSon.jouer();
+			fenetre.son.setIcon(new ImageIcon(imageSonOn));
+		}	
+	}	
+	
 }	
