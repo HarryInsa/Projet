@@ -5,22 +5,22 @@ import java.io.*;
 public class Principal {
 	
 	public static FenetrePrincipale fenetre;
-	public static partie p;
+	public static FenetreNiveau fenetreniveau;
+	public static Partie p;
 	public static Sound leSon;
 	
 	
 	public static void main (String [] args){
 		
 		leSon = new Sound("musique1.wav");
-		boolean b = false;
-		
-		FenetreAccueil fenetreaccueil = new FenetreAccueil(leSon, b);
+		boolean sonOn = true;	//True si la musique marche false sinon
+		FenetreAccueil fenetreaccueil = new FenetreAccueil(sonOn);
 		
 		while(!fenetreaccueil.click){
 			System.out.print("");
 		}
 		
-		FenetreNiveau fenetreniveau = fenetreaccueil.fenetreniveau;
+		fenetreniveau = fenetreaccueil.fenetreniveau;
 		
 		while(fenetreniveau.estOuverte()){
 			while(fenetreniveau.click1 == false || fenetreniveau.click2 == false){
@@ -32,7 +32,7 @@ public class Principal {
 			fenetreniveau.jouer = false;
 			fenetreniveau.click1 = false;
 			fenetreniveau.click2 = false;
-			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation, leSon, fenetreniveau.b);
+			fenetre = new FenetrePrincipale(fenetreniveau.niveau, fenetreniveau.operation, fenetreniveau.sonOn);
 			p = fenetre.p;
 			lancerJeu();
 		}
@@ -124,7 +124,7 @@ public class Principal {
 		if(fin){
 			leSon.arreter();
 			fenetre.dispose();
-			FenetreFin ffin = new FenetreFin(coups, fenetre.tempsdeJeu);
+			FenetreFin ffin = new FenetreFin(coups, fenetre.tempsdeJeu, fenetreniveau, fenetre.sonOn);
 		}
 	}	
 		
