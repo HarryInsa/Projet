@@ -1,12 +1,12 @@
 //Bibliothèque
 import java.util.*;
 
-public class plateau{
+public class Plateau{
 	
 	//Attribut
 	public int [][] jeu;
 	
-	public plateau (LinkedList<Pair> list){
+	public Plateau (LinkedList<Pair> list){
 		
 		//pas de problem car les listes sont composées d'un nombre de paire de telle sorte à obtenir une matrice carrée
 		int n = (int)(Math.sqrt((list.size())*2));	
@@ -47,4 +47,3 @@ public class plateau{
 	}
 	
 }
-
