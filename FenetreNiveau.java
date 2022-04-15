@@ -20,18 +20,18 @@ public class FenetreNiveau extends JFrame implements ActionListener{
     public JButton bouton1, bouton2, bouton3, boutonadd, boutonsous, quitter, boutonJouer, son;
 	public JLabel chpsNiveau, chpsOpe, horloge;
 	public int niveau = 0, operation = 0;
-    public partie p;
+    public Partie p;
     public FenetrePrincipale f;
-    public boolean click1 = false, click2 = false, jouer = false, b;
+    public boolean click1 = false, click2 = false, jouer = false, sonOn;
     public ImageIcon iconSonOn, iconSonOff, icon;
     public Image imageSonOn, imageSonOff;
     public Sound leSon;
     
     
-    public FenetreNiveau(Sound leSon, boolean b){
+    public FenetreNiveau(boolean sonOn){
         
-        this.b = b;
-        this.leSon = leSon;
+        this.leSon = Principal.leSon;
+        this.sonOn = sonOn;
         
         //Définition de la fenetre
         this.setTitle("Bienvenue - The Memory");
@@ -111,10 +111,12 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         son.setBounds(385,0, 30, 30);
         son.setBackground(Color.WHITE);
         
-        if(!b){
+        if(sonOn){
 			son.setIcon(new ImageIcon(imageSonOn));
+			leSon.jouerEnBoucle();
         }else{
 			son.setIcon(new ImageIcon(imageSonOff));
+			leSon.arreter();
 		}	
         
         son.addActionListener(this);
@@ -184,7 +186,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         erreur = "Veuillez d'abord choisir un type et un niveau de jeu !";
         
         //Fond d'écran - image        
-        icon = new ImageIcon("./LogoPrinc.png");
+        icon = new ImageIcon("./ImageNiveau.png");
         JLabel fond = new JLabel();
         Image imageZoom = scaleImage(icon.getImage(), 415, 465);
         fond.setIcon (new ImageIcon(imageZoom));
@@ -262,7 +264,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         }
         
         if(e.getSource() == son){
-			sonOnOff(b);
+			sonOnOff();
 		}
         
     }
@@ -281,16 +283,16 @@ public class FenetreNiveau extends JFrame implements ActionListener{
 	}	
     
     //Arreter ou remmetre la musique
-    public void sonOnOff (boolean b){
-		if(b){
-			leSon.jouerEnBoucle();
-			son.setIcon(new ImageIcon(imageSonOn));
-			this.b = false;
-		}else{
+	public void sonOnOff (){
+		if(sonOn){
 			leSon.arreter();
 			son.setIcon(new ImageIcon(imageSonOff));
-			this.b = true;
+			this.sonOn = false;
+		}else{
+			this.sonOn = true;
+			leSon.jouer();
+			son.setIcon(new ImageIcon(imageSonOn));
 		}		
-	}		
+	}
     
 }
