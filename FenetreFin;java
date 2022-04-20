@@ -69,7 +69,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		temp = new JLabel();
 		temp.setBounds(220,110, 100, 50);
 		temp.setFont(police);
-        temp.setForeground(Color.WHITE);
+        temp.setForeground(new Color(104, 50, 15));
 		fond.add(temp);
 		calculTemps();
 		
@@ -77,26 +77,27 @@ public class FenetreFin extends JFrame implements ActionListener{
 		JLabel coup = new JLabel("Vous avez gagné en " + coups + " coups");
 		coup.setBounds(135,60,300,100);
 		coup.setFont(police);
-		coup.setForeground(Color.white);
+		coup.setForeground(new Color(104, 50, 15));
 		fond.add(coup);
 		
 		//Etiquette Bravo
 		JLabel bravo = new JLabel("Bravo !");
 		bravo.setBounds(180,50,100,50);
 		bravo.setFont(policeBravo);
-		bravo.setForeground(Color.white);
+		bravo.setForeground(new Color(104, 50, 15));
 		fond.add(bravo);
 		
 		//Etiquette tempsmis
 		JLabel tempsmis = new JLabel("Vous avez mis ");
 		tempsmis.setBounds(130,110,300,50);
 		tempsmis.setFont(police);
-		tempsmis.setForeground(Color.white);
+		tempsmis.setForeground(new Color(104, 50, 15));
 		fond.add(tempsmis);
 		
 		//Bouton nouvelle partie
 		rejoue = new JButton ("Rejouer !");
 		rejoue.setBounds(305, 380, 100, 50);
+		rejoue.setForeground(new Color(104, 50, 15));
 		rejoue.addActionListener(this);
 		fond.add(rejoue);
 		
@@ -107,6 +108,7 @@ public class FenetreFin extends JFrame implements ActionListener{
 		quitter.addActionListener(this);
 		fond.add(quitter);
 		
+		//Image fond
         icon = new ImageIcon("./ImageFin.png");
         JLabel image = new JLabel(icon,JLabel.CENTER);
         image.setSize(430,490);
