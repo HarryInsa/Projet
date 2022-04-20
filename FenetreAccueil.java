@@ -70,7 +70,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         //Bouton démarrer
         continuer = new JButton("Démarrer");
         continuer.setBounds (150, 350, 100, 50);
-        continuer.setForeground(new Color(253, 212, 65));
+        continuer.setForeground(new Color(104, 50, 15));
         continuer.setFont(police);
         monConteneur.add(continuer);
         continuer.addActionListener(this);
