@@ -57,17 +57,20 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         bouton1 = new JButton("Niveau 1");
         bouton1.setFont(policeTaille16);
         bouton1.setBounds(25,180,100,50);
+        bouton1.setForeground(new Color(104, 50, 15));
         bouton1.addActionListener(this);
         monConteneur.add(bouton1);
         
         bouton2 = new JButton("Niveau 2");
         bouton2.setFont(policeTaille16);
         bouton2.setBounds(150,180,100,50);
+        bouton2.setForeground(new Color(104, 50, 15));
         bouton2.addActionListener(this);
         monConteneur.add(bouton2);
         
         bouton3 = new JButton("Niveau 3");
         bouton3.setBounds(275,180,100,50);
+        bouton3.setForeground(new Color(104, 50, 15));
         bouton3.setFont(policeTaille16);
         bouton3.addActionListener(this);
         monConteneur.add(bouton3);
@@ -75,12 +78,14 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Boutons choix opération
         boutonadd = new JButton("Addition");
         boutonadd.setBounds(25, 50, 150, 50);
+        boutonadd.setForeground(new Color(104, 50, 15));
         boutonadd.setFont(policeTaille18);
         boutonadd.addActionListener(this);
         monConteneur.add(boutonadd);
         
         boutonsous = new JButton("Soustraction");
         boutonsous.setBounds(225, 50, 150, 50);
+        boutonsous.setForeground(new Color(104, 50, 15));
         boutonsous.setFont(policeTaille18);
         boutonsous.addActionListener(this);
         monConteneur.add(boutonsous);
@@ -96,6 +101,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Bouton Jouer
         boutonJouer = new JButton("Jouer !");
         boutonJouer.setBounds(305,355,100,50);
+        boutonJouer.setForeground(new Color(104, 50, 15));
         boutonJouer.setFont(policeTaille18);
         boutonJouer.addActionListener(this);
         monConteneur.add(boutonJouer);
@@ -126,28 +132,28 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Affichage niveau choisit
         chpsNiveau = new JLabel();
         chpsNiveau.setFont(policeTaille18);
-        chpsNiveau.setForeground(Color.WHITE);
+        chpsNiveau.setForeground(new Color(104, 50, 15));
         chpsNiveau.setBounds(222,230,50,50);
         monConteneur.add(chpsNiveau);
         
         //Affichage opération choisit
         chpsOpe = new JLabel();
         chpsOpe.setFont(policeTaille18);
-        chpsOpe.setForeground(Color.WHITE);
+        chpsOpe.setForeground(new Color(104, 50, 15));
         chpsOpe.setBounds(243,110,140,50);
         monConteneur.add(chpsOpe);
         
         //Etiquette info niveau
         JLabel chpsNiveau = new JLabel("Vous avez choisit le niveau :");
         chpsNiveau.setBounds(25,230,200,50);
-        chpsNiveau.setForeground(Color.WHITE);
+        chpsNiveau.setForeground(new Color(104, 50, 15));
         chpsNiveau.setFont(policeTaille16);
         monConteneur.add(chpsNiveau);
         
         //Etiquette info operation
         JLabel chpsope = new JLabel("Vous avez choisit l'opération :");
         chpsope.setBounds(25, 110, 210, 50);
-        chpsope.setForeground(Color.WHITE);
+        chpsope.setForeground(new Color(104, 50, 15));
         chpsope.setFont(policeTaille16);
         monConteneur.add(chpsope);
         
@@ -155,7 +161,7 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		horloge = new JLabel(format.format(date));
-		horloge.setForeground(Color.WHITE);
+		horloge.setForeground(new Color(104, 50, 15));
 		horloge.setBounds(25,-20, 400, 100);
 		horloge.setFont(policeTaille16);
         monConteneur.add(horloge);
@@ -163,16 +169,19 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         //Création du menu
         menu = new JMenu("Menu");
         menu.setFont(policeTaille18);
+        menu.setForeground(new Color(104, 50, 15));
         menubar = new JMenuBar();
         
         //Items du menu et leurs caractéristiques
         regle = new JMenuItem("Règles du jeu");
         regle.addActionListener(this);
         regle.setFont(policeTaille18);
+        regle.setForeground(new Color(104, 50, 15));
         
         autre = new JMenuItem("Informations");
         autre.addActionListener(this);
         autre.setFont(policeTaille18);
+        autre.setForeground(new Color(104, 50, 15));
         
         menu.add(regle);
         menu.add(autre);
@@ -181,8 +190,16 @@ public class FenetreNiveau extends JFrame implements ActionListener{
         this.setJMenuBar(menubar);
 		
         //Texte de présentation du menu
-        reglejeu = "<html> Ce jeu est un memory où il faut former des pairs en faisant au choix des sommes ou des soustractions. <br> L'ordinateur choisit un nombre entre 10 et 70 selon le niveau choisit.<br>Le nombre de pairs à retrouver dépend du niveau choisit ! <br> Le but du jeu est de retrouver toutes les pairs. Ce jeu vous entraine donc à la fois votre mémoire et développe aussi votre capacité de calcul mental :) </html>";
-        information = "<html>- Jeu réalisé par Agathe Vincent, Harry Kalfon et Noa Portier - <br> - 2022 - Projet Informatique - Insa LYON - </html>";
+        reglejeu = "\n THE MEMORY est un memory où il faut former des pairs";
+        reglejeu += "\n en faisant au choix des sommes ou des soustractions.";
+        reglejeu += "\n L'ordinateur choisit un nombre entre 10 et 70 selon";
+        reglejeu += "\n le niveau selectionné. Le nombre de pairs à trouver";
+        reglejeu += "\n dépend du niveau choisit. Le but de ce jeu est donc";
+        reglejeu += "\n de retrouver toutes les pairs. Ce jeu entraine à la";
+        reglejeu += "\n fois votre mémoire mais développe aussi votre calcul";
+        reglejeu += "\n mental :) A vous de jouer et amuser-vous bien !!!!!";
+        information = "- Jeu réalisé par Agathe Vincent, Harry Kalfon et Noa Portier - ";
+        information += "\n    - 2022  -  Projet Informatique 2ème année  -  Insa LYON -";
         erreur = "Veuillez d'abord choisir un type et un niveau de jeu !";
         
         //Fond d'écran - image        
