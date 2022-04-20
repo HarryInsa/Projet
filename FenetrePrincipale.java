@@ -14,26 +14,26 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	public javax.swing.Timer mt;
 	public JLabel temps;
     public JButton [][] lesBoutons;
-	public partie p;
-	public boolean click = false, b;
+	public Partie p;
+	public boolean click = false, sonOn;
     public ImageIcon iconSonOn, iconSonOff, icon;
 	public Image imageSonOn, imageSonOff;
 	public JButton son;
-	public Sound leSon;
+	public static Sound leSon;
     
-	public FenetrePrincipale (int niveau, int operation, Sound leSon, boolean b){
+	public FenetrePrincipale (int niveau, int operation, boolean sonOn){
 		
 		//Instanciation partie
-        p = new partie (niveau, operation);
-        this.b = b;
-		this.leSon = leSon;
+        p = new Partie (niveau, operation);
+        this.sonOn = sonOn;
+		leSon = Principal.leSon;
         
 		//Définition des polices
         policeNiveau1 = new Font ("Cambria", Font.PLAIN, 50);
         policeNiveau2 = new Font ("Cambria", Font.PLAIN, 30);
         policeNiveau3 = new Font ("Cambria", Font.PLAIN, 17);
         policeCentaine = new Font ("Cambria",Font.PLAIN, 14);
-        policeNbCle = new Font("Cambria", Font.PLAIN, 22);
+        policeNbCle = new Font("Cambria", Font.PLAIN, 20);
         policeTempsdeJeu = new Font("Cambria", Font.PLAIN, 18);
         
 		//Initialisation de la fenetre
@@ -65,7 +65,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
         son.setBounds(655,0, 30, 30);
         son.setBackground(Color.WHITE);
         
-        if(!b){
+        if(sonOn){
 			son.setIcon(new ImageIcon(imageSonOn));
         }else{
 			son.setIcon(new ImageIcon(imageSonOff));
@@ -77,7 +77,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		//Affichage du temps de jeu
 		temps = new JLabel();
 		temps.setBounds(560, 20, 150,50);
-		temps.setForeground(Color.white);
+		temps.setForeground(new Color(104, 50, 15));
 		temps.setFont(policeTempsdeJeu);
 		temps.setHorizontalAlignment(SwingConstants.CENTER);
 		fond.add(temps);
@@ -87,7 +87,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		JLabel cle = new JLabel("Nombre clé : "+z);
         cle.setFont(policeNbCle);
 		cle.setBounds(5,20,150,50);
-		cle.setForeground(Color.white);
+		cle.setForeground(new Color(104, 50, 15));
 		fond.add(cle);
 		
 		//Création et affichage du tableau de boutons
@@ -101,6 +101,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 			for(int j=0 ; j < n ; j++){
 				lesBoutons[i][j] = new JButton();
 				lesBoutons[i][j].setBounds( ecartx+i*ecartx+i*t , 100+j*ecarty+j*t , t , t );
+				lesBoutons[i][j].setForeground(new Color(104, 50, 15));
 				fond.add(lesBoutons[i][j]);		
                 choixPolice(lesBoutons[i][j], i, j);
 				lesBoutons[i][j].addActionListener(this);
@@ -108,7 +109,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		}
 		
 		//Fond d'écran - image        
-        icon = new ImageIcon("./logoJeu.png");
+        icon = new ImageIcon("./ImagePrincipale.png");
         JLabel fondImage = new JLabel();
         Image imageZoom = scaleImage(icon.getImage(), 690, 700);
         fondImage.setIcon (new ImageIcon(imageZoom));
@@ -134,7 +135,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		}
 		
 		if(e.getSource() == son){
-			sonOnOff(b);
+			sonOnOff();
 		}	
 		
 	}
@@ -220,17 +221,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	    return source.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING);
     }
 	
-	//Arreter ou remmetre la musique	
-	public void sonOnOff (boolean b){
-		if(b){
-			leSon.jouerEnBoucle();
-			son.setIcon(new ImageIcon(imageSonOn));
-			this.b = false;
-		}else{
+	//Arreter ou remmetre la musique
+	public void sonOnOff (){
+		if(sonOn){
 			leSon.arreter();
 			son.setIcon(new ImageIcon(imageSonOff));
-			this.b = true;
+			this.sonOn = false;
+		}else{
+			this.sonOn = true;
+			leSon.jouer();
+			son.setIcon(new ImageIcon(imageSonOn));
 		}		
-	}	
+	}
 	
 }
