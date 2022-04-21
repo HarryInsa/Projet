@@ -29,12 +29,12 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         
         this.sonOn = sonOn;
         this.SonDebut = new Sound("generique.wav");
-        SonDebut.jouer();
+        SonDebut.jouerEnBoucle();
         this.pack();
         
 		//Définition de la fenetre
         this.setTitle("Bienvenue - The Memory");
-        this.setSize(415,465);
+        this.setSize(590,390);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,14 +48,14 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         monConteneur.setLayout(null);
         
         //Bouton son
-		iconSonOn = new ImageIcon("./SonOn.png");
+		iconSonOn = new ImageIcon("./SonOnNoir.png");
         imageSonOn = scaleImage(iconSonOn.getImage(), 30, 30);
         
-        iconSonOff = new ImageIcon("./SonOff.png");
+        iconSonOff = new ImageIcon("./SonOffNoir.png");
         imageSonOff = scaleImage(iconSonOff.getImage(), 30, 30);
         
         son = new JButton();
-        son.setBounds(370,0, 30, 30);
+        son.setBounds(545, 0, 30, 30);
         son.setBackground(Color.WHITE);
         
         if(sonOn){
@@ -69,16 +69,16 @@ public class FenetreAccueil extends JFrame implements ActionListener{
         
         //Bouton démarrer
         continuer = new JButton("Démarrer");
-        continuer.setBounds (150, 350, 100, 50);
+        continuer.setBounds (245, 290, 100, 50);
         continuer.setForeground(new Color(104, 50, 15));
         continuer.setFont(police);
         monConteneur.add(continuer);
         continuer.addActionListener(this);
         
         //Fond d'écran - image        
-        icon = new ImageIcon("./ImageAccueil.gif");
+        icon = new ImageIcon("./GifDebut.gif");
         JLabel fond = new JLabel(icon,JLabel.CENTER);
-        fond.setSize(415,465);
+        fond.setBounds(0, 0, 590, 390);
         monConteneur.add(fond);
         
         add(monConteneur);
@@ -111,7 +111,7 @@ public class FenetreAccueil extends JFrame implements ActionListener{
 			this.sonOn = false;
 		}else{
 			this.sonOn = true;
-			SonDebut.jouer();
+			SonDebut.jouerEnBoucle();
 			son.setIcon(new ImageIcon(imageSonOn));
 		}		
 	}	
